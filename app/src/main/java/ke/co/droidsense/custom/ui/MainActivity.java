@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Method to fetch Leagues Data from SportsDb Api.
     private void getLeaguesData() {
 
         //Setup sportsDbApi.

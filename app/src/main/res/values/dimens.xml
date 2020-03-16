@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="leaguePadding">4dp</dimen>
+    <dimen name="linearPadding">16dp</dimen>
+    <dimen name="strLeagueName">18sp</dimen>
+    <dimen name="leagueMarginTop">8dp</dimen>
+    <dimen name="linearPaddingSmall">8dp</dimen>
+    <dimen name="linearLayoutSmall">8dp</dimen>
+    <dimen name="recyclerPadding">16dp</dimen>
+</resources>

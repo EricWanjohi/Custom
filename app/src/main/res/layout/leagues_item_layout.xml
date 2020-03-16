@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/leaguesLinearLayoutItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/linearLayoutSmall"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/idLeague"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/leaguePadding"
+            android:text="@string/idLeague"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/strSport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/leaguePadding"
+            android:text="@string/sport"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textStyle="normal|bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/leaguesLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/leaguesLinearLayoutItem"
+        android:orientation="vertical"
+        android:padding="@dimen/linearPadding">
+
+        <TextView
+            android:id="@+id/strLeague"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="@integer/maxLeagueHeaderLines"
+            android:padding="@dimen/leaguePadding"
+            android:text="TextView"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="@dimen/strLeagueName"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+</RelativeLayout>

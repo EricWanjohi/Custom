@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Custom</string>
+    <string name="idLeague">ID:</string>
+    <string name="sport">Sport</string>
 </resources>
