@@ -1,5 +1,5 @@
 # Custom
-Sports application
+Simple Sports application to list and view sport Events information.
 
 ## Getting Started
 You can get a copy of this project in your machine either by:-
