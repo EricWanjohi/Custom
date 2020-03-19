@@ -7,4 +7,8 @@
     <dimen name="linearPaddingSmall">8dp</dimen>
     <dimen name="linearLayoutSmall">8dp</dimen>
     <dimen name="recyclerPadding">16dp</dimen>
+    <dimen name="inputMargin">6dp</dimen>
+    <dimen name="buttonMargin">5dp</dimen>
+    <dimen name="headerDimens">18sp</dimen>
+    <dimen name="googlePadding">16dp</dimen>
 </resources>

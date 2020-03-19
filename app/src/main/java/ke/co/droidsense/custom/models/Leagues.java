@@ -1,11 +1,14 @@
 
 package ke.co.droidsense.custom.models;
 
+import androidx.room.Entity;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "Leagues")
 public class Leagues {
 
     @SerializedName("leagues")

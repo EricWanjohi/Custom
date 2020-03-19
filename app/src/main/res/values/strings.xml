@@ -2,4 +2,11 @@
     <string name="app_name">Custom</string>
     <string name="idLeague">ID:</string>
     <string name="sport">Sport</string>
+    <string name="register">Create Account</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="logInText">Have an Account? Log In</string>
+    <string name="fullName">Full Name</string>
 </resources>
