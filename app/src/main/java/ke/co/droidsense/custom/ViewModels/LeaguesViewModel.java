@@ -5,14 +5,14 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 
 import ke.co.droidsense.custom.Repositories.LeaguesRepository;
-import ke.co.droidsense.custom.models.Leagues;
+import ke.co.droidsense.custom.models.ResponseModels.LeaguesResult;
+import timber.log.Timber;
 
 public class LeaguesViewModel extends AndroidViewModel {
     //Member variables.
-    private LiveData<Leagues> leaguesLiveData = new MediatorLiveData<>();
+    private LiveData<LeaguesResult> leaguesLiveData;
     private LeaguesRepository leaguesRepository;
 
 
@@ -31,12 +31,26 @@ public class LeaguesViewModel extends AndroidViewModel {
         if (leaguesLiveData == null) {
             //Fetch data through Repository.
             leaguesRepository = LeaguesRepository.getLeaguesRepository( getApplication() );
-            leaguesLiveData = leaguesRepository.getAllLeagues();
+            leaguesLiveData = leaguesRepository.getLeagues();
+            Timber.tag( "initializeViewModel" ).e( leaguesLiveData.toString() );
         }
     }
 
     //Create getter for LiveData object.
-    public LiveData<Leagues> getLeaguesLiveData() {
+    public LiveData<LeaguesResult> getLeaguesLiveData() {
+        Timber.tag( "getLeaguesLiveData" ).e( "createCall" );
         return leaguesLiveData;
+    }
+
+    //Save LeaguesResult.
+    public void insertLeagues(LeaguesResult leaguesResult) {
+        //Use Repository to insert new LeaguesResult Objects.
+        leaguesRepository.saveLeagues( leaguesResult );
+    }
+
+    //Delete LeaguesResult.
+    public void deleteLeagues(LeaguesResult leaguesResult) {
+        //Use Repository to delete Objects.
+        leaguesRepository.deleteLeagues( leaguesResult );
     }
 }

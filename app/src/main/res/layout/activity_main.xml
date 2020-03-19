@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blueGrey700"
     tools:context=".ui.MainActivity">
-
-    <TextView
-        android:id="@+id/leaguesHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blueGrey500"
-        android:gravity="center"
-        android:padding="@dimen/googlePadding"
-        android:text="Leagues"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/headerDimens"
-        android:textStyle="bold|italic" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaguesRecyclerView"
-        android:layout_below="@+id/leaguesHeader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blueGrey500"
-        android:padding="@dimen/recyclerPadding" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
-</RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

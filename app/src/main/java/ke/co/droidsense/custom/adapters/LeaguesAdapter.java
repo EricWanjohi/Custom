@@ -1,10 +1,12 @@
 package ke.co.droidsense.custom.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ke.co.droidsense.custom.R;
-import ke.co.droidsense.custom.models.League;
+import ke.co.droidsense.custom.models.Items.League;
+import ke.co.droidsense.custom.ui.LeagueDetailsActivity;
 
 public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHolder> {
     //Member variables.
@@ -41,6 +44,9 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
         holder.strSport.setText( league.getStrSport() );
         holder.idLeague.setText( league.getIdLeague() );
 
+        //Set Tag on item
+        holder.itemView.setTag( league );
+
     }
 
     @Override
@@ -49,7 +55,7 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
     }
 
     //Create ViewHolder.
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //Member Variables.
         TextView strLeague, idLeague, strSport;
 
@@ -62,6 +68,24 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
             strSport = itemView.findViewById( R.id.strSport );
             idLeague = itemView.findViewById( R.id.idLeague );
 
+            //Set Click listener on item.
+            itemView.setOnClickListener( this );
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            //Get tag.
+            League league = (League) view.getTag();
+            //Handle click listener.
+            if (view.getTag() == league) {
+                //Toast
+                Toast.makeText( context, league.getStrLeague(), Toast.LENGTH_LONG ).show();
+                //Use intent to transition to new Details Activity.
+                Intent leagueDetailsIntent = new Intent( context, LeagueDetailsActivity.class );
+                leagueDetailsIntent.putExtra( "idLeague", league.getId() );
+                context.startActivity( leagueDetailsIntent );
+            }
         }
     }
 }

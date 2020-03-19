@@ -1,11 +1,21 @@
 
-package ke.co.droidsense.custom.models;
+package ke.co.droidsense.custom.models.Items;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import ke.co.droidsense.custom.Converters.LeaguesConverter;
+
+@TypeConverters(LeaguesConverter.class)
+@Entity(tableName = "League")
 public class League {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     @SerializedName("idLeague")
     @Expose
     private String idLeague;
@@ -51,4 +61,11 @@ public class League {
         this.strLeagueAlternate = strLeagueAlternate;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

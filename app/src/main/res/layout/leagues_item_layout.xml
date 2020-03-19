@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:background="@color/blueGrey900"
+    android:padding="@dimen/buttonMargin">
+
+    <LinearLayout
+        android:id="@+id/leaguesLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/leaguePadding">
+
+        <TextView
+            android:id="@+id/strLeague"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="@integer/maxLeagueHeaderLines"
+            android:padding="@dimen/leaguePadding"
+            android:text="@string/league_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/strLeagueName"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/leaguesLinearLayoutItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/linearLayoutSmall"
+        android:layout_below="@+id/leaguesLinearLayout"
         android:orientation="horizontal">
 
         <TextView
@@ -17,7 +42,7 @@
             android:layout_weight="1"
             android:padding="@dimen/leaguePadding"
             android:text="@string/idLeague"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@android:color/white"
             android:textStyle="normal|bold" />
 
         <TextView
@@ -27,28 +52,9 @@
             android:layout_weight="1"
             android:padding="@dimen/leaguePadding"
             android:text="@string/sport"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@android:color/white"
             android:textStyle="normal|bold" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/leaguesLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/leaguesLinearLayoutItem"
-        android:orientation="vertical"
-        android:padding="@dimen/linearPadding">
 
-        <TextView
-            android:id="@+id/strLeague"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="@integer/maxLeagueHeaderLines"
-            android:padding="@dimen/leaguePadding"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="@dimen/strLeagueName"
-            android:textStyle="bold|italic" />
-    </LinearLayout>
 </RelativeLayout>

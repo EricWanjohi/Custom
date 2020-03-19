@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
     //Create Retrofit Instance.
     private static Retrofit retrofit;
-    private static String Base_Url = "https://www.thesportsdb.com/api/v1/json/1/";
+    private static String Base_Url = "https://www.thesportsdb.com/";
 
     //Get Retrofit Instance.
     public static Retrofit getRetrofit() {

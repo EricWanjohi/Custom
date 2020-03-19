@@ -9,4 +9,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="logInText">Have an Account? Log In</string>
     <string name="fullName">Full Name</string>
+    <string name="league_name">League Name</string>
+    <string name="leagues">Leagues</string>
 </resources>

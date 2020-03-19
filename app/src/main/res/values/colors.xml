@@ -12,4 +12,5 @@
     <color name="blueGrey900">#263238</color>
     <color name="blueGrey500">#607D8B</color>
     <color name="blueGrey700">#455A64</color>
+    <color name="whiteTheme">#ffffff</color>
 </resources>
