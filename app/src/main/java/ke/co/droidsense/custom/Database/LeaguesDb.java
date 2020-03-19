@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import ke.co.droidsense.custom.Daos.LeaguesDao;
 import ke.co.droidsense.custom.models.Leagues;
 
-@Database(entities = Leagues.class, version = 1)
+@Database(entities = Leagues.class, version = 2)
 public abstract class LeaguesDb extends RoomDatabase {
     //Fields...
     private static final String DATABASE = "AllLeaguesDb";
@@ -20,7 +20,9 @@ public abstract class LeaguesDb extends RoomDatabase {
         //Check if Instance is null.
         if (leaguesDbInstance == null) {
             //Create new Instance.
-            leaguesDbInstance = Room.databaseBuilder( context, LeaguesDb.class, DATABASE ).build();
+            leaguesDbInstance = Room.databaseBuilder( context, LeaguesDb.class, DATABASE )
+                    .fallbackToDestructiveMigrationFrom()
+                    .build();
         }
         //Else return Instance.
         return leaguesDbInstance;

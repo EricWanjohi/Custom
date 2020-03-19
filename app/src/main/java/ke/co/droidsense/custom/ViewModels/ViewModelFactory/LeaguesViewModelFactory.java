@@ -1,4 +1,7 @@
 package ke.co.droidsense.custom.ViewModels.ViewModelFactory;
 
-public class LeaguesViewModelFactory {
+import androidx.lifecycle.ViewModelProvider;
+
+public class LeaguesViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+    //Fields
 }
