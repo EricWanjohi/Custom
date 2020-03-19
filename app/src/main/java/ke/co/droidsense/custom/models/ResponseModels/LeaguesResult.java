@@ -8,21 +8,28 @@ import androidx.room.TypeConverters;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 import ke.co.droidsense.custom.Converters.LeaguesConverter;
 import ke.co.droidsense.custom.models.Items.League;
 
+@Parcel
 @TypeConverters(LeaguesConverter.class)
 @Entity(tableName = "LeaguesResult")
 public class LeaguesResult {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    int id;
 
     @SerializedName("leagues")
     @Expose
-    private List<League> leagues = null;
+    List<League> leagues = null;
+
+    //Empty constructor.
+    public LeaguesResult() {
+    }
 
     public List<League> getLeagues() {
         return leagues;
