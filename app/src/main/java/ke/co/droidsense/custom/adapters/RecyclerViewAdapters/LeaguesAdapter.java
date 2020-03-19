@@ -1,4 +1,4 @@
-package ke.co.droidsense.custom.adapters;
+package ke.co.droidsense.custom.adapters.RecyclerViewAdapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -77,6 +77,10 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
         public void onClick(View view) {
             //Get tag.
             League league = (League) view.getTag();
+
+            //Get Position.
+            int position = getLayoutPosition();
+
             //Handle click listener.
             if (view.getTag() == league) {
                 //Toast
@@ -84,6 +88,8 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
                 //Use intent to transition to new Details Activity.
                 Intent leagueDetailsIntent = new Intent( context, LeagueDetailsActivity.class );
                 leagueDetailsIntent.putExtra( "idLeague", league.getId() );
+//                leagueDetailsIntent.putExtra( "position", position );
+//                leagueDetailsIntent.putExtra( "leaguesList", Parcels.wrap( leagueList ));
                 context.startActivity( leagueDetailsIntent );
             }
         }

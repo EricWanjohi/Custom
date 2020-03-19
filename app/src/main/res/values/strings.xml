@@ -11,4 +11,15 @@
     <string name="fullName">Full Name</string>
     <string name="league_name">League Name</string>
     <string name="leagues">Leagues</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="strLeague">League</string>
+    <string name="strSport">Sport</string>
+    <string name="strBadge">League Badge</string>
+    <string name="strCurrentSeason">Current Season</string>
+    <string name="intFormedYear">Year Formed</string>
+    <string name="strDivision">Division</string>
+    <string name="strDescriptionEN">Description</string>
+    <string name="strFacebook">Facebook</string>
+    <string name="strTwitter">Twitter</string>
+    <string name="strYoutube">Youtube</string>
 </resources>

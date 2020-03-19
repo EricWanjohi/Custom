@@ -12,4 +12,9 @@
     <dimen name="headerDimens">18sp</dimen>
     <dimen name="googlePadding">16dp</dimen>
     <dimen name="headingPadding">4dp</dimen>
+    <dimen name="fragHeaderPadding">4dp</dimen>
+    <dimen name="padding4dp">4dp</dimen>
+    <dimen name="padding8dp">8dp</dimen>
+    <dimen name="socialSize">18sp</dimen>
+    <dimen name="padding16dp">16dp</dimen>
 </resources>

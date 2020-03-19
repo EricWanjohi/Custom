@@ -16,7 +16,7 @@ import butterknife.BindView;
 import ke.co.droidsense.custom.ApiInterface.SportsDbApi;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.ViewModels.LeaguesViewModel;
-import ke.co.droidsense.custom.adapters.LeaguesAdapter;
+import ke.co.droidsense.custom.adapters.RecyclerViewAdapters.LeaguesAdapter;
 import ke.co.droidsense.custom.models.Items.League;
 import ke.co.droidsense.custom.models.ResponseModels.LeaguesResult;
 import timber.log.Timber;
