@@ -9,13 +9,16 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import ke.co.droidsense.custom.Converters.LeaguesByCountryConverter;
 import ke.co.droidsense.custom.Converters.LeaguesConverter;
 import ke.co.droidsense.custom.Daos.LeaguesDao;
+import ke.co.droidsense.custom.models.Country;
+import ke.co.droidsense.custom.models.Country_;
 import ke.co.droidsense.custom.models.Items.League;
 import ke.co.droidsense.custom.models.ResponseModels.LeaguesResult;
 
-@TypeConverters(LeaguesConverter.class)
-@Database(entities = {LeaguesResult.class, League.class}, version = 5, exportSchema = false)
+@TypeConverters({LeaguesConverter.class, LeaguesByCountryConverter.class})
+@Database(entities = {LeaguesResult.class, League.class, Country.class, Country_.class}, version = 6, exportSchema = false)
 public abstract class LeaguesDb extends RoomDatabase {
     //Fields...
     private static final String DATABASE = "AllLeaguesDb";
@@ -45,6 +48,13 @@ public abstract class LeaguesDb extends RoomDatabase {
     };
 
     static final Migration MIGRATION_4_5 = new Migration( 4, 5 ) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // Since we didn't alter the table, there's nothing else to do here.
+        }
+    };
+
+    static final Migration MIGRATION_5_6 = new Migration( 5, 6 ) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             // Since we didn't alter the table, there's nothing else to do here.

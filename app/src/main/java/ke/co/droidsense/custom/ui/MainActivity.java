@@ -1,19 +1,31 @@
 package ke.co.droidsense.custom.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import ke.co.droidsense.custom.ApiInterface.SportsDbApi;
+import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.ViewModels.LeaguesViewModel;
 import ke.co.droidsense.custom.adapters.RecyclerViewAdapters.LeaguesAdapter;
@@ -31,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private List<League> leaguesList;
     private LeaguesViewModel leaguesViewModel;
     private ProgressDialog progressDialog;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,54 +106,80 @@ public class MainActivity extends AppCompatActivity {
         } );
     }
 
-    // //Check if ok.
-    //                switch (leaguesResource.status){
-    //
-    //                    //Case Success.
-    //                    case SUCCESS:
-    //                        Timber.tag( "SUCCESS" ).e( leaguesResource.status.toString() );
-    //                        //Check if data is null.
-    //                        if (leaguesResource.data != null){
-    //                            //Handle data response.
-    //                            Timber.tag( "leaguesResource" ).e( leaguesResource.data.getLeagues().toString() );
-    //                            LeaguesResult leaguesResult = leaguesResource.data;
-    //
-    //                            //Create List data holder.
-    //                            List<League> leagueItems = leaguesResult.getLeagues();
-    //
-    //                            //Add Items to ArrayList.
-    //                            leaguesList.addAll( leagueItems );
-    //
-    //                            //Notify Adapter
-    //                            adapter.notifyDataSetChanged();
-    //
-    //                            //SnackBar to show data string to User.
-    //                            Snackbar.make(getWindow().getDecorView(), leaguesResource.data.toString(), Snackbar.LENGTH_LONG)
-    //                                    .setAction("OK", null)
-    //                                    .show();
-    //                        }
-    //                        break;
-    //
-    //                    //case Error.
-    //                    case ERROR:
-    //                        //SnackBar to show Error to User.
-    //                        Timber.tag( "ERROR" ).e( leaguesResource.status.toString() );
-    //                        assert leaguesResource.message != null;
-    //                        Snackbar.make(getWindow().getDecorView(), leaguesResource.message, Snackbar.LENGTH_LONG)
-    //                                .setAction("OK", null)
-    //                                .show();
-    //                        break;
-    //
-    //                        //Case Loading.
-    //                    case LOADING:
-    //                        //SnackBar to show Error to User.
-    //                        Timber.tag( "LOADING" ).e( leaguesResource.status.toString() );
-    //                        assert leaguesResource.message != null;
-    //                        Snackbar.make(getWindow().getDecorView(), leaguesResource.message, Snackbar.LENGTH_LONG)
-    //                                .setAction("Cool", null)
-    //                                .show();
-    //                        break;
-    //                }
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //get menu inflater
+        MenuInflater menuInflater = getMenuInflater();
+
+        //Inflate menu.
+        menuInflater.inflate( R.menu.search_view_menu, menu );
+
+        //Get SharedPreference.
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences( this );
+        editor = sharedPreferences.edit();
+
+        //Find menuItem.
+        MenuItem menuItem = menu.findItem( R.id.searchView );
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Add to SharedPreference.
+                addToSharedPreference( query );
+
+                //getLeagueByQuery
+                getLeagueQueryData( query );
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        } );
+        return true;
+    }
+
+    //Transition to LeagueActivity to show search item.
+    private void getLeagueQueryData(String searchQuery) {
+        //Create Intent to transition to search activity
+        Intent searchTermIntent = new Intent( MainActivity.this, QueryActivity.class );
+        searchTermIntent.putExtra( Constants.SEARCH_QUERY, searchQuery );
+        startActivity( searchTermIntent );
+        //Toast
+        Toast.makeText( this, "Searching " + searchQuery, Toast.LENGTH_SHORT ).show();
+    }
+
+    //Add to sharedPreference.
+    private void addToSharedPreference(String query) {
+        //Use Editor to add item
+        editor.putString( Constants.SEARCH_QUERY, query ).apply();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //Check item clicked.
+        if (item.getItemId() == R.id.logout) {
+            //log out.
+            Logout();
+            return true;
+        }
+        return super.onOptionsItemSelected( item );
+    }
+
+    //Logout
+    private void Logout() {
+        //Use FirebaseAuth to logout.
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent( MainActivity.this, Login.class );
+        intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+        startActivity( intent );
+        finish();
+    }
 }

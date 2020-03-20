@@ -1,10 +1,20 @@
 
 package ke.co.droidsense.custom.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import ke.co.droidsense.custom.Converters.LeaguesByCountryConverter;
+
+@Entity(tableName = "Country_")
+@TypeConverters(LeaguesByCountryConverter.class)
 public class Country_ {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @SerializedName("idLeague")
     @Expose
@@ -141,6 +151,10 @@ public class Country_ {
     @SerializedName("strLocked")
     @Expose
     private String strLocked;
+
+    //Empty constructor.
+    public Country_() {
+    }
 
     public String getIdLeague() {
         return idLeague;
@@ -502,4 +516,11 @@ public class Country_ {
         this.strLocked = strLocked;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

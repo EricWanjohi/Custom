@@ -1,6 +1,8 @@
 package ke.co.droidsense.custom.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -41,12 +43,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     EditText confirm_password;
     @BindView(R.id.full_name)
     EditText full_name;
+    @BindView(R.id.register_text)
+    TextView registerHeader;
+    FirebaseUser firebaseUser;
+
 
     //FirebaseDatabase and DataReference.
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private ProgressDialog progressDialog;
     User isUserRegistered;
 
     //String values.
@@ -63,6 +70,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         //Initializations.
         ButterKnife.bind( this );
+
+        //ProgressDialog.
+        createAuthProgressDialog();
+
+        //Change Font.
+        Typeface sun_valley_font = Typeface.createFromAsset( getAssets(), "fonts/Sun_Valley-Demo.ttf" );
+        registerHeader.setTypeface( sun_valley_font );
+
 
         //Firebase Auth.
         //Init FirebaseDatabase and DatabaseReference;
@@ -93,6 +108,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
             //Case signUpBtn.
             case R.id.sign_up_btn:
+                progressDialog.setMessage( "Creating Account..." );
                 //Create User.
                 createNewUser();
                 break;
@@ -114,6 +130,15 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         if (authStateListener != null) {
             firebaseAuth.removeAuthStateListener( authStateListener );
         }
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    private void createAuthProgressDialog() {
+        //Progress Dialog.
+        progressDialog = new ProgressDialog( this );
+        progressDialog.setTitle( "Loading..." );
+        progressDialog.setMessage( "Authenticating with Firebase..." );
+        progressDialog.setCancelable( false );
     }
 
     //Transitioning to Login.
@@ -126,71 +151,42 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    //Validate User input data.
-    private void validateInputData() {
-
-        //Check Input data not empty.
-        checkIfInputEmpty();
-
-        //Validate Email address format is ok.
-        checkEmailFormat();
-
-
-        //validate Password equals Confirm Password.
-        checkPasswords();
-
-    }
-
     //Validate passwords.
-    private void checkPasswords() {
-        //Passwords.
-        if (!passwordText.equals( confirmPasswordText )) {
-            password.setError( "Passwords do not match." );
-        }
-
+    private boolean isValidPassword(String pass, String confirmPass) {
         //Validate Password & Confirm Password Length.
         if (passwordText.length() < 6) {
             //set Error.
             password.setError( "Minimum length should be 6 characters." );
-        }
-
-        if (confirmPasswordText.length() < 6) {
+            return false;
+        } else if (!passwordText.equals( confirmPasswordText )) {
             //Set Error.
-            confirm_password.setError( "Minimum length should be 6 characters." );
+            confirm_password.setError( "Passwords do not match." );
+            return false;
         }
+        return true;
     }
 
     //Validate Email Format.
-    private void checkEmailFormat() {
+    private boolean isValidEmail(String emailText) {
+        boolean isGoodEmail = (emailText != null && Patterns.EMAIL_ADDRESS.matcher( email.getText().toString() ).matches());
         //Email.
-        if (!Patterns.EMAIL_ADDRESS.matcher( email.getText().toString() ).matches()) {
+        if (!isGoodEmail) {
             //Set Error.
-            email.setError( "Email must be a valid address." );
+            email.setError( "Please enter a valid Email." );
+            return false;
         }
+        return isGoodEmail;
     }
 
     //Validate inputs
-    private void checkIfInputEmpty() {
+    private boolean isValidName(String name) {
         //Input
-        if (full_name.getText().toString().isEmpty()) {
+        if (name.equals( "" )) {
             //Set Error.
             full_name.setError( "Name cannot be empty." );
+            return false;
         }
-
-        if (password.getText().toString().isEmpty()) {
-            //Set Error.
-            password.setError( "Password cannot be empty." );
-        }
-
-        if (confirm_password.getText().toString().isEmpty()) {
-            //Set Error.
-            confirm_password.setError( "Confirm Password cannot be empty" );
-        }
-
-        if (email.getText().toString().isEmpty()) {
-            //Set Error message.
-            email.setError( "Email cannot be empty." );
-        }
+        return true;
     }
 
     //Listen for authentication state.
@@ -224,7 +220,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         fullName = full_name.getText().toString().trim();
 
         //Validate Inputs.
-        validateInputData();
+        boolean validEmail = isValidEmail( emailText );
+        boolean validName = isValidName( fullName );
+        boolean validPassword = isValidPassword( passwordText, confirmPasswordText );
+
+        if (!validEmail || !validName || !validPassword) return;
+
+        //Show progress Dialog.
+        progressDialog.show();
 
         //Get User instance.
         User user = new User( fullName, emailText, phoneText, passwordText, confirmPasswordText );
@@ -237,6 +240,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 .addOnCompleteListener( Register.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        //Dismiss progressDialog.
+                        progressDialog.dismiss();
                         //Check if Task is successful.
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information

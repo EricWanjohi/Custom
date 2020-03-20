@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import ke.co.droidsense.custom.ApiInterface.SportsDbApi;
 import ke.co.droidsense.custom.Daos.LeaguesDao;
 import ke.co.droidsense.custom.Database.LeaguesDb;
+import ke.co.droidsense.custom.models.Country;
 import ke.co.droidsense.custom.models.ResponseModels.LeaguesResult;
 import ke.co.droidsense.custom.utils.RetrofitClient;
 import retrofit2.Call;
@@ -75,34 +76,29 @@ public class LeaguesRepository {
         return leaguesResultMutableLiveData;
     }
 
-    //Fetch LeaguesResult data from SportsDbApi.
-//    public LiveData<Resource<LeaguesResult>> getAllLeagues() {
-//        return new NetworkBoundResource<LeaguesResult, LeaguesResult>() {
-//            @Override
-//            protected void saveCallResult(@NonNull LeaguesResult leaguesResult) {
-//                //Save returned data to Local Db.
-//                Timber.tag( "saveCallResult" ).e( "saveCallResult" );
-//                saveLeagues( leaguesResult );
-//            }
-//
-//            @NonNull
-//            @Override
-//            protected LiveData<LeaguesResult> loadFromDb() {
-//                //Load data from Local Db.
-//                Timber.tag( "loadFromDb" ).e( "loadFromDb" );
-//                return leaguesDao.getAllLeagues();
-//            }
-//
-//            @NonNull
-//            @Override
-//            protected Call<LeaguesResult> createCall() {
-//                //Get data from Api.
-//                Timber.tag( "createCall" ).e( "createCall" );
-//                return sportsDbApi.getLeagues();
-//            }
-//            //Return data as LiveData.
-//        }.getAsLiveData();
-//    }
+    //Get Leagues by Country via MutableLiveData.
+    public MutableLiveData<Country> getLeaguesInCountry(String country) {
+        //Create MutableLiveData to store response.
+        final MutableLiveData<Country> listMutableLiveData = new MutableLiveData<>();
+
+        //Get LiveData using sportsDbApi.
+        sportsDbApi.getLeaguesByCountry( country ).enqueue( new Callback<Country>() {
+            @Override
+            public void onResponse(Call<Country> call, Response<Country> response) {
+                //Check if response is successful.
+                if (response.isSuccessful()) {
+                    listMutableLiveData.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Country> call, Throwable t) {
+
+            }
+        } );
+
+        return listMutableLiveData;
+    }
 
     ///////////////////////// Public methods to interact with data, db and viewmodel //////////////
 

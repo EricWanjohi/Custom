@@ -23,4 +23,9 @@
     <string name="strTwitter">Twitter</string>
     <string name="strYoutube">Youtube</string>
     <string name="full_name">Full Name</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_account_create_account">Don\'t have account? Create Account</string>
+    <string name="logIn">Login</string>
+    <string name="search">Search</string>
+    <string name="logout">Logout</string>
 </resources>

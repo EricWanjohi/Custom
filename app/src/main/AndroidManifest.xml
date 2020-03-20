@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.QueryActivity"></activity>
         <activity
             android:name=".ui.LeagueDetailsActivity"
             android:label="Details">
@@ -21,8 +22,7 @@
         </activity>
         <activity
             android:name=".ui.Login"
-            android:theme="@style/AppTheme">
-
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
@@ -40,9 +40,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="Leagues"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
