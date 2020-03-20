@@ -7,18 +7,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import ke.co.droidsense.custom.R;
+import ke.co.droidsense.custom.models.User;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
     //Member Variables.
+    @BindView(R.id.log_in_text_btn)
     TextView loginButtonText;
+    @BindView(R.id.sign_up_btn)
     Button signUpButton;
     @BindView(R.id.email)
     EditText email;
@@ -34,6 +45,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     //FirebaseDatabase and DataReference.
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
+    User isUserRegistered;
 
     //String values.
     private String emailText;
@@ -48,13 +61,43 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         setContentView( R.layout.activity_register );
 
         //Initializations.
-        signUpButton = findViewById( R.id.sign_up_btn );
-        loginButtonText = findViewById( R.id.log_in_text_btn );
+        ButterKnife.bind( this );
+
+        //Firebase Auth.
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Set ClickListeners.
         signUpButton.setOnClickListener( this );
+
         loginButtonText.setOnClickListener( this );
 
+    }
+
+    //Create New User.
+    private void createNewUser() {
+        //Get Strings from Text input.
+        emailText = email.getText().toString().trim();
+        phoneText = phone.getText().toString().trim();
+        passwordText = password.getText().toString().trim();
+        confirmPasswordText = confirm_password.getText().toString().trim();
+        fullName = full_name.getText().toString().trim();
+
+        //Create User with Email and password.
+        firebaseAuth.createUserWithEmailAndPassword( emailText, passwordText )
+                .addOnCompleteListener( Register.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //Check if Task is successful.
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText( Register.this, "Authentication Failed...", Toast.LENGTH_LONG ).show();
+                        }
+                    }
+                } );
     }
 
     @Override
@@ -62,17 +105,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         //Switch statement.
         switch (view.getId()) {
 
-            //Case signUpButton clicked.
-            case R.id.sign_up_btn:
-                //Validate values.
-                validateInputData();
-
-                //Create Account.
-                createAccount();
-                break;
+            //Case loginText clicked.
             case R.id.log_in_text_btn:
                 //Transition to Login Activity.
                 transitionToLoginActivity();
+                break;
+
+            //Case signUpBtn.
+            case R.id.sign_up_btn:
+                //Create User.
+                createNewUser();
                 break;
         }
     }
@@ -81,30 +123,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private void transitionToLoginActivity() {
         //Create new Intent.
         Intent loginIntent = new Intent( this, Login.class );
+        loginIntent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
         startActivity( loginIntent );
         finish();
 
-    }
-
-    //Create Account.
-    private void createAccount() {
-        //Get Strings from Text input.
-        emailText = email.getText().toString();
-        phoneText = phone.getText().toString();
-        passwordText = password.getText().toString();
-        confirmPasswordText = confirm_password.getText().toString();
-        fullName = full_name.getText().toString();
-
-        //Transition to MainActivity.
-        Intent intent = new Intent( this, MainActivity.class );
-        intent.putExtra( "email", emailText );
-        intent.putExtra( "phone", phoneText );
-        intent.putExtra( "password", passwordText );
-        intent.putExtra( "confirmPass", confirmPasswordText );
-        intent.putExtra( "fullName", fullName );
-        intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-        startActivity( intent );
-        finish();
     }
 
     //Validate User input data.
@@ -174,5 +196,41 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    //Override OnStart to check if User is signed in.
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //Check if user is signed in.
+//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
+    }
+
+
+    //@Override
+    //            public void onClick(View v) {
+    //                //Init FirebaseDatabase and DatabaseReference;
+    //                firebaseDatabase = FirebaseDatabase.getInstance();
+    //                databaseReference = firebaseDatabase.getReference();
+    //
+    //
+    //
+    //                //Get User instance.
+    //                User user = new User( fullName, emailText, phoneText, passwordText, confirmPasswordText );
+    //
+    //                //Save value to firebase.
+    //                databaseReference.child( phoneText ).setValue( user );
+    //
+    //
+    //
+    //                //Transition to MainActivity.
+    //                Intent intent = new Intent( Register.this, MainActivity.class );
+    //                intent.putExtra( "fullName", fullName );
+    //                intent.putExtra( "email", emailText );
+    //                intent.putExtra( "phone", phoneText );
+    //                intent.putExtra( "password", passwordText );
+    //                intent.putExtra( "confirmPass", confirmPasswordText );
+    //                intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+    //                startActivity( intent );
+    //                finish();
+    //            }
 }

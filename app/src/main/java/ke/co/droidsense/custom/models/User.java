@@ -10,6 +10,7 @@ public class User {
 
     //Empty constructor.
     public User() {
+        //Empty constructor required by Firebase.
     }
 
     //Constructor.

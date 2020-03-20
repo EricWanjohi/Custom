@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     tools:context=".ui.Register">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/colorPrimary">
+            android:layout_height="200dp"
+            android:background="@color/blueGrey900">
 
             <TextView
                 android:id="@+id/register_text"
@@ -33,10 +32,12 @@
             android:id="@+id/register_form"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/padding16dp"
             android:layout_gravity="center_vertical"
-            android:background="@android:color/white"
             android:orientation="vertical"
-            android:padding="@dimen/linearPadding">
+            android:background="@color/blueGrey900"
+            android:padding="@dimen/linearPadding"
+            android:scrollbarAlwaysDrawVerticalTrack="true">
 
 
             <EditText
@@ -44,9 +45,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:hint="Full Name"
+                android:background="@color/whiteTheme"
                 android:inputType="text"
                 android:textColor="@android:color/black"
+                android:hint="@string/full_name"
                 android:textStyle="italic">
 
             </EditText>
@@ -57,9 +59,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:hint="Email"
+                android:background="@color/whiteTheme"
                 android:inputType="textEmailAddress"
                 android:textColor="@android:color/black"
+                android:hint="@string/email"
                 android:textStyle="italic">
 
             </EditText>
@@ -69,9 +72,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:hint="Phone"
+                android:background="@color/whiteTheme"
                 android:inputType="phone"
                 android:textColor="@android:color/black"
+                android:hint="@string/phone"
                 android:textStyle="italic">
 
             </EditText>
@@ -82,9 +86,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:hint="Password"
+                android:background="@color/whiteTheme"
                 android:inputType="textPassword"
                 android:textColor="@android:color/black"
+                android:hint="@string/password"
                 android:textStyle="italic">
 
             </EditText>
@@ -94,9 +99,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:hint="Confirm Password"
+                android:background="@color/whiteTheme"
                 android:inputType="textPassword"
                 android:textColor="@android:color/black"
+                android:hint="@string/confirm_password"
                 android:textStyle="italic">
 
             </EditText>
@@ -106,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/buttonMargin"
-                android:background="@color/colorPrimary"
+                android:background="@color/blueGrey500"
                 android:padding="@dimen/linearPadding"
                 android:text="@string/register"
                 android:textAllCaps="false"
@@ -122,9 +128,9 @@
                 android:background="@android:color/transparent"
                 android:text="@string/logInText"
                 android:textAllCaps="false"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>
