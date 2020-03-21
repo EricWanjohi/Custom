@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blueGrey900"
+    android:background="@color/blueGrey700"
     tools:context=".ui.QueryActivity">
 
     <androidx.recyclerview.widget.RecyclerView

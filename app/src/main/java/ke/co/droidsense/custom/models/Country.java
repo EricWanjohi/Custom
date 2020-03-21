@@ -8,6 +8,7 @@ import androidx.room.TypeConverters;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ke.co.droidsense.custom.Converters.LeaguesByCountryConverter;
@@ -21,18 +22,18 @@ public class Country {
 
     @SerializedName("countrys")
     @Expose
-    private List<Country_> countrys = null;
+    private List<countryItem> countryItems = new ArrayList<>();
 
     //Empty constructor.
     public Country() {
     }
 
-    public List<Country_> getCountrys() {
-        return countrys;
+    public List<countryItem> getCountryItems() {
+        return countryItems;
     }
 
-    public void setCountrys(List<Country_> countrys) {
-        this.countrys = countrys;
+    public void setCountryItems(List<countryItem> countryItems) {
+        this.countryItems = countryItems;
     }
 
     public int getId() {

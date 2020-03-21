@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/blueGrey900"
+    android:layout_margin="1dp"
     android:padding="4dp">
 
     <LinearLayout
@@ -73,6 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/strBadge"
+                    android:padding="@dimen/padding8dp"
                     android:src="@drawable/common_full_open_on_phone" />
             </FrameLayout>
 
@@ -142,51 +144,51 @@
                 android:textStyle="normal" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/strWebsite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:gravity="center"
+            android:padding="@dimen/padding16dp"
+            android:singleLine="true"
+            android:text="@string/strWebsite"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/headerDimens"
+            android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/strFacebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="@dimen/padding4dp"
-                android:singleLine="true"
-                android:text="@string/strFacebook"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/socialSize"
-                android:textStyle="normal|bold" />
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="60dp"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:weightSum="3">-->
 
-            <TextView
-                android:id="@+id/strTwitter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="@dimen/padding4dp"
-                android:singleLine="true"
-                android:text="@string/strTwitter"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/socialSize"
-                android:textStyle="normal|bold" />
+        <!--            <ImageView-->
+        <!--                android:id="@+id/strFacebook"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:gravity="center"-->
+        <!--                android:padding="@dimen/padding16dp"-->
+        <!--                android:src="@drawable/facebook4" />-->
 
-            <TextView
-                android:id="@+id/strYoutube"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="@dimen/padding4dp"
-                android:singleLine="true"
-                android:text="@string/strYoutube"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/socialSize"
-                android:textStyle="normal|bold" />
-        </LinearLayout>
+        <!--            <ImageView-->
+        <!--                android:id="@+id/strTwitter"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:gravity="center"-->
+        <!--                android:padding="@dimen/padding16dp"-->
+        <!--                android:src="@drawable/twitter"/>-->
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/strYoutube"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:layout_weight="1"-->
+        <!--                android:gravity="center"-->
+        <!--                android:padding="@dimen/padding16dp"-->
+        <!--                android:src="@drawable/youtube1" />-->
+        <!--        </LinearLayout>-->
     </LinearLayout>
 
 </FrameLayout>

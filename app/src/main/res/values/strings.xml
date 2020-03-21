@@ -28,4 +28,6 @@
     <string name="logIn">Login</string>
     <string name="search">Search</string>
     <string name="logout">Logout</string>
+    <string name="leagues_in_country">Leagues in country</string>
+    <string name="strWebsite">Website</string>
 </resources>

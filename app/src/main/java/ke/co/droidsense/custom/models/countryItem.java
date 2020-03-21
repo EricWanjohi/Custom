@@ -10,9 +10,9 @@ import com.google.gson.annotations.SerializedName;
 
 import ke.co.droidsense.custom.Converters.LeaguesByCountryConverter;
 
-@Entity(tableName = "Country_")
+@Entity(tableName = "countryItem")
 @TypeConverters(LeaguesByCountryConverter.class)
-public class Country_ {
+public class countryItem {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -21,7 +21,7 @@ public class Country_ {
     private String idLeague;
     @SerializedName("idSoccerXML")
     @Expose
-    private Object idSoccerXML;
+    private String idSoccerXML;
     @SerializedName("idAPIfootball")
     @Expose
     private String idAPIfootball;
@@ -48,7 +48,7 @@ public class Country_ {
     private String intFormedYear;
     @SerializedName("dateFirstEvent")
     @Expose
-    private Object dateFirstEvent;
+    private String dateFirstEvent;
     @SerializedName("strGender")
     @Expose
     private String strGender;
@@ -75,61 +75,61 @@ public class Country_ {
     private String strDescriptionEN;
     @SerializedName("strDescriptionDE")
     @Expose
-    private Object strDescriptionDE;
+    private String strDescriptionDE;
     @SerializedName("strDescriptionFR")
     @Expose
-    private Object strDescriptionFR;
+    private String strDescriptionFR;
     @SerializedName("strDescriptionIT")
     @Expose
-    private Object strDescriptionIT;
+    private String strDescriptionIT;
     @SerializedName("strDescriptionCN")
     @Expose
-    private Object strDescriptionCN;
+    private String strDescriptionCN;
     @SerializedName("strDescriptionJP")
     @Expose
-    private Object strDescriptionJP;
+    private String strDescriptionJP;
     @SerializedName("strDescriptionRU")
     @Expose
-    private Object strDescriptionRU;
+    private String strDescriptionRU;
     @SerializedName("strDescriptionES")
     @Expose
-    private Object strDescriptionES;
+    private String strDescriptionES;
     @SerializedName("strDescriptionPT")
     @Expose
-    private Object strDescriptionPT;
+    private String strDescriptionPT;
     @SerializedName("strDescriptionSE")
     @Expose
-    private Object strDescriptionSE;
+    private String strDescriptionSE;
     @SerializedName("strDescriptionNL")
     @Expose
-    private Object strDescriptionNL;
+    private String strDescriptionNL;
     @SerializedName("strDescriptionHU")
     @Expose
-    private Object strDescriptionHU;
+    private String strDescriptionHU;
     @SerializedName("strDescriptionNO")
     @Expose
-    private Object strDescriptionNO;
+    private String strDescriptionNO;
     @SerializedName("strDescriptionPL")
     @Expose
-    private Object strDescriptionPL;
+    private String strDescriptionPL;
     @SerializedName("strDescriptionIL")
     @Expose
-    private Object strDescriptionIL;
+    private String strDescriptionIL;
     @SerializedName("strFanart1")
     @Expose
-    private Object strFanart1;
+    private String strFanart1;
     @SerializedName("strFanart2")
     @Expose
-    private Object strFanart2;
+    private String strFanart2;
     @SerializedName("strFanart3")
     @Expose
-    private Object strFanart3;
+    private String strFanart3;
     @SerializedName("strFanart4")
     @Expose
-    private Object strFanart4;
+    private String strFanart4;
     @SerializedName("strBanner")
     @Expose
-    private Object strBanner;
+    private String strBanner;
     @SerializedName("strBadge")
     @Expose
     private String strBadge;
@@ -138,22 +138,22 @@ public class Country_ {
     private String strLogo;
     @SerializedName("strPoster")
     @Expose
-    private Object strPoster;
+    private String strPoster;
     @SerializedName("strTrophy")
     @Expose
-    private Object strTrophy;
+    private String strTrophy;
     @SerializedName("strNaming")
     @Expose
     private String strNaming;
     @SerializedName("strComplete")
     @Expose
-    private Object strComplete;
+    private String strComplete;
     @SerializedName("strLocked")
     @Expose
     private String strLocked;
 
     //Empty constructor.
-    public Country_() {
+    public countryItem() {
     }
 
     public String getIdLeague() {
@@ -164,11 +164,11 @@ public class Country_ {
         this.idLeague = idLeague;
     }
 
-    public Object getIdSoccerXML() {
+    public String getIdSoccerXML() {
         return idSoccerXML;
     }
 
-    public void setIdSoccerXML(Object idSoccerXML) {
+    public void setIdSoccerXML(String idSoccerXML) {
         this.idSoccerXML = idSoccerXML;
     }
 
@@ -236,11 +236,11 @@ public class Country_ {
         this.intFormedYear = intFormedYear;
     }
 
-    public Object getDateFirstEvent() {
+    public String getDateFirstEvent() {
         return dateFirstEvent;
     }
 
-    public void setDateFirstEvent(Object dateFirstEvent) {
+    public void setDateFirstEvent(String dateFirstEvent) {
         this.dateFirstEvent = dateFirstEvent;
     }
 
@@ -308,155 +308,155 @@ public class Country_ {
         this.strDescriptionEN = strDescriptionEN;
     }
 
-    public Object getStrDescriptionDE() {
+    public String getStrDescriptionDE() {
         return strDescriptionDE;
     }
 
-    public void setStrDescriptionDE(Object strDescriptionDE) {
+    public void setStrDescriptionDE(String strDescriptionDE) {
         this.strDescriptionDE = strDescriptionDE;
     }
 
-    public Object getStrDescriptionFR() {
+    public String getStrDescriptionFR() {
         return strDescriptionFR;
     }
 
-    public void setStrDescriptionFR(Object strDescriptionFR) {
+    public void setStrDescriptionFR(String strDescriptionFR) {
         this.strDescriptionFR = strDescriptionFR;
     }
 
-    public Object getStrDescriptionIT() {
+    public String getStrDescriptionIT() {
         return strDescriptionIT;
     }
 
-    public void setStrDescriptionIT(Object strDescriptionIT) {
+    public void setStrDescriptionIT(String strDescriptionIT) {
         this.strDescriptionIT = strDescriptionIT;
     }
 
-    public Object getStrDescriptionCN() {
+    public String getStrDescriptionCN() {
         return strDescriptionCN;
     }
 
-    public void setStrDescriptionCN(Object strDescriptionCN) {
+    public void setStrDescriptionCN(String strDescriptionCN) {
         this.strDescriptionCN = strDescriptionCN;
     }
 
-    public Object getStrDescriptionJP() {
+    public String getStrDescriptionJP() {
         return strDescriptionJP;
     }
 
-    public void setStrDescriptionJP(Object strDescriptionJP) {
+    public void setStrDescriptionJP(String strDescriptionJP) {
         this.strDescriptionJP = strDescriptionJP;
     }
 
-    public Object getStrDescriptionRU() {
+    public String getStrDescriptionRU() {
         return strDescriptionRU;
     }
 
-    public void setStrDescriptionRU(Object strDescriptionRU) {
+    public void setStrDescriptionRU(String strDescriptionRU) {
         this.strDescriptionRU = strDescriptionRU;
     }
 
-    public Object getStrDescriptionES() {
+    public String getStrDescriptionES() {
         return strDescriptionES;
     }
 
-    public void setStrDescriptionES(Object strDescriptionES) {
+    public void setStrDescriptionES(String strDescriptionES) {
         this.strDescriptionES = strDescriptionES;
     }
 
-    public Object getStrDescriptionPT() {
+    public String getStrDescriptionPT() {
         return strDescriptionPT;
     }
 
-    public void setStrDescriptionPT(Object strDescriptionPT) {
+    public void setStrDescriptionPT(String strDescriptionPT) {
         this.strDescriptionPT = strDescriptionPT;
     }
 
-    public Object getStrDescriptionSE() {
+    public String getStrDescriptionSE() {
         return strDescriptionSE;
     }
 
-    public void setStrDescriptionSE(Object strDescriptionSE) {
+    public void setStrDescriptionSE(String strDescriptionSE) {
         this.strDescriptionSE = strDescriptionSE;
     }
 
-    public Object getStrDescriptionNL() {
+    public String getStrDescriptionNL() {
         return strDescriptionNL;
     }
 
-    public void setStrDescriptionNL(Object strDescriptionNL) {
+    public void setStrDescriptionNL(String strDescriptionNL) {
         this.strDescriptionNL = strDescriptionNL;
     }
 
-    public Object getStrDescriptionHU() {
+    public String getStrDescriptionHU() {
         return strDescriptionHU;
     }
 
-    public void setStrDescriptionHU(Object strDescriptionHU) {
+    public void setStrDescriptionHU(String strDescriptionHU) {
         this.strDescriptionHU = strDescriptionHU;
     }
 
-    public Object getStrDescriptionNO() {
+    public String getStrDescriptionNO() {
         return strDescriptionNO;
     }
 
-    public void setStrDescriptionNO(Object strDescriptionNO) {
+    public void setStrDescriptionNO(String strDescriptionNO) {
         this.strDescriptionNO = strDescriptionNO;
     }
 
-    public Object getStrDescriptionPL() {
+    public String getStrDescriptionPL() {
         return strDescriptionPL;
     }
 
-    public void setStrDescriptionPL(Object strDescriptionPL) {
+    public void setStrDescriptionPL(String strDescriptionPL) {
         this.strDescriptionPL = strDescriptionPL;
     }
 
-    public Object getStrDescriptionIL() {
+    public String getStrDescriptionIL() {
         return strDescriptionIL;
     }
 
-    public void setStrDescriptionIL(Object strDescriptionIL) {
+    public void setStrDescriptionIL(String strDescriptionIL) {
         this.strDescriptionIL = strDescriptionIL;
     }
 
-    public Object getStrFanart1() {
+    public String getStrFanart1() {
         return strFanart1;
     }
 
-    public void setStrFanart1(Object strFanart1) {
+    public void setStrFanart1(String strFanart1) {
         this.strFanart1 = strFanart1;
     }
 
-    public Object getStrFanart2() {
+    public String getStrFanart2() {
         return strFanart2;
     }
 
-    public void setStrFanart2(Object strFanart2) {
+    public void setStrFanart2(String strFanart2) {
         this.strFanart2 = strFanart2;
     }
 
-    public Object getStrFanart3() {
+    public String getStrFanart3() {
         return strFanart3;
     }
 
-    public void setStrFanart3(Object strFanart3) {
+    public void setStrFanart3(String strFanart3) {
         this.strFanart3 = strFanart3;
     }
 
-    public Object getStrFanart4() {
+    public String getStrFanart4() {
         return strFanart4;
     }
 
-    public void setStrFanart4(Object strFanart4) {
+    public void setStrFanart4(String strFanart4) {
         this.strFanart4 = strFanart4;
     }
 
-    public Object getStrBanner() {
+    public String getStrBanner() {
         return strBanner;
     }
 
-    public void setStrBanner(Object strBanner) {
+    public void setStrBanner(String strBanner) {
         this.strBanner = strBanner;
     }
 
@@ -476,19 +476,19 @@ public class Country_ {
         this.strLogo = strLogo;
     }
 
-    public Object getStrPoster() {
+    public String getStrPoster() {
         return strPoster;
     }
 
-    public void setStrPoster(Object strPoster) {
+    public void setStrPoster(String strPoster) {
         this.strPoster = strPoster;
     }
 
-    public Object getStrTrophy() {
+    public String getStrTrophy() {
         return strTrophy;
     }
 
-    public void setStrTrophy(Object strTrophy) {
+    public void setStrTrophy(String strTrophy) {
         this.strTrophy = strTrophy;
     }
 
@@ -500,11 +500,11 @@ public class Country_ {
         this.strNaming = strNaming;
     }
 
-    public Object getStrComplete() {
+    public String getStrComplete() {
         return strComplete;
     }
 
-    public void setStrComplete(Object strComplete) {
+    public void setStrComplete(String strComplete) {
         this.strComplete = strComplete;
     }
 

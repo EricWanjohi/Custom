@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,16 +18,20 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import ke.co.droidsense.custom.R;
-import ke.co.droidsense.custom.models.Country_;
+import ke.co.droidsense.custom.models.countryItem;
+import timber.log.Timber;
 
 public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCountryAdapter.ViewHolder> {
+    private static final int MAX_WIDTH = 100;
+    private static final int MAX_HEIGHT = 100;
     //Member Variables.
-    private List<Country_> country_list;
+    private List<countryItem> country_Item_list;
     private Context context;
+    private String websiteString;
 
     //Constructor
-    public LeaguesByCountryAdapter(List<Country_> country_list, Context context) {
-        this.country_list = country_list;
+    public LeaguesByCountryAdapter(List<countryItem> country_Item_list, Context context) {
+        this.country_Item_list = country_Item_list;
         this.context = context;
     }
 
@@ -41,37 +46,58 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Get Item holder
-        Country_ country_ = country_list.get( position );
+        countryItem countryItem = country_Item_list.get( position );
 
         //Bind View.
-        holder.strLeague.setText( country_.getStrLeague() );
-        holder.idLeague.setText( country_.getIdLeague() );
-        holder.strSport.setText( country_.getStrSport() );
-        holder.strCurrentSeason.setText( country_.getStrCurrentSeason() );
-        holder.intFormedYear.setText( country_.getIntFormedYear() );
-        holder.strDivision.setText( country_.getStrDivision() );
-        holder.strDescriptionEN.setText( country_.getStrDescriptionEN() );
-        holder.strFacebook.setText( country_.getStrFacebook() );
-        holder.strTwitter.setText( country_.getStrTwitter() );
-        holder.strYoutube.setText( country_.getStrYoutube() );
+        holder.strLeague.setText( countryItem.getStrLeague() );
+        holder.idLeague.setText( "ID: " + countryItem.getIdLeague() );
+        holder.strSport.setText( countryItem.getStrSport() );
+        holder.strCurrentSeason.setText( "Season: " + countryItem.getStrCurrentSeason() );
+        holder.intFormedYear.setText( "Formed Year: " + countryItem.getIntFormedYear() );
+        holder.strDivision.setText( "Division: " + countryItem.getStrDivision() );
+        holder.strDescriptionEN.setText( countryItem.getStrDescriptionEN() );
 
         //Bind Image.
-        Picasso.get().load( country_.getStrBadge() ).centerCrop().into( holder.strBadge );
+        Picasso.get().load( countryItem.getStrBadge() ).resize( MAX_HEIGHT, MAX_WIDTH ).centerCrop().into( holder.strBadge );
 
 
         //Set Tag on Item.
-        holder.itemView.setTag( country_ );
+        holder.itemView.setTag( countryItem );
     }
 
     @Override
     public int getItemCount() {
-        return country_list.size();
+        return country_Item_list.size();
+    }
+
+    //Check if website url is null
+    private void checkIfWebsiteUrl(countryItem country) {
+        boolean isNull;
+        websiteString = country.getStrWebsite().trim();
+
+        //Perform Check.
+        if (websiteString.isEmpty()) {
+            isNull = true;
+            //Toast.
+            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
+        } else if (websiteString.equals( "" )) {
+            isNull = true;
+            //Toast.
+            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
+        } else {
+            isNull = false;
+            //Implicit Intent.
+            Uri websiteUri = Uri.parse( websiteString );
+            Intent website = new Intent( Intent.ACTION_VIEW, websiteUri );
+            Timber.tag( "Facebook Url: " ).e( websiteUri.toString() );
+            context.startActivity( website );
+        }
     }
 
     //ViewHolder class.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //Member variables.
-        private TextView strLeague, idLeague, strSport, strCurrentSeason, intFormedYear, strDivision, strDescriptionEN, strFacebook, strTwitter, strYoutube;
+        private TextView strLeague, idLeague, strSport, strCurrentSeason, intFormedYear, strDivision, strDescriptionEN, strWebsite;
         private ImageView strBadge;
 
         //ViewHolder.
@@ -86,42 +112,26 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
             intFormedYear = itemView.findViewById( R.id.intFormedYear );
             strDivision = itemView.findViewById( R.id.strDivision );
             strDescriptionEN = itemView.findViewById( R.id.strDescriptionEN );
-            strFacebook = itemView.findViewById( R.id.strFacebook );
-            strTwitter = itemView.findViewById( R.id.strTwitter );
-            strYoutube = itemView.findViewById( R.id.strYoutube );
+            strWebsite = itemView.findViewById( R.id.strWebsite );
+            strBadge = itemView.findViewById( R.id.strBadge );
 
             //Set Click Listeners
-            strYoutube.setOnClickListener( this );
-            strFacebook.setOnClickListener( this );
-            strTwitter.setOnClickListener( this );
+            strWebsite.setOnClickListener( this );
 
         }
 
         @Override
         public void onClick(View view) {
             //get Tag
-            Country_ country_ = (Country_) view.getTag();
+            countryItem country = (countryItem) view.getTag();
 
             //Check item clicked.
             switch (view.getId()) {
 
                 //Case FaceBook.
-                case R.id.strFacebook:
-                    //Implicit Intent.
-                    Intent facebook = new Intent( Intent.ACTION_VIEW, Uri.parse( country_.getStrFacebook() ) );
-                    context.startActivity( facebook );
-
-                    //Case Twitter.
-                case R.id.strTwitter:
-                    //Implicit intent.
-                    Intent twitter = new Intent( Intent.ACTION_VIEW, Uri.parse( country_.getStrTwitter() ) );
-                    context.startActivity( twitter );
-
-                    //Case Youtube.
-                case R.id.strYoutube:
-                    //Implicit intent.
-                    Intent youtube = new Intent( Intent.ACTION_VIEW, Uri.parse( country_.getStrYoutube() ) );
-                    context.startActivity( youtube );
+                case R.id.strWebsite:
+                    //Check if link is null.
+                    checkIfWebsiteUrl( country );
             }
         }
     }

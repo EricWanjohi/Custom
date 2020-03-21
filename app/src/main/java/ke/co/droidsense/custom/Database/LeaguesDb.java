@@ -13,12 +13,12 @@ import ke.co.droidsense.custom.Converters.LeaguesByCountryConverter;
 import ke.co.droidsense.custom.Converters.LeaguesConverter;
 import ke.co.droidsense.custom.Daos.LeaguesDao;
 import ke.co.droidsense.custom.models.Country;
-import ke.co.droidsense.custom.models.Country_;
 import ke.co.droidsense.custom.models.Items.League;
 import ke.co.droidsense.custom.models.ResponseModels.LeaguesResult;
+import ke.co.droidsense.custom.models.countryItem;
 
 @TypeConverters({LeaguesConverter.class, LeaguesByCountryConverter.class})
-@Database(entities = {LeaguesResult.class, League.class, Country.class, Country_.class}, version = 6, exportSchema = false)
+@Database(entities = {LeaguesResult.class, League.class, Country.class, countryItem.class}, version = 7, exportSchema = false)
 public abstract class LeaguesDb extends RoomDatabase {
     //Fields...
     private static final String DATABASE = "AllLeaguesDb";
@@ -55,6 +55,13 @@ public abstract class LeaguesDb extends RoomDatabase {
     };
 
     static final Migration MIGRATION_5_6 = new Migration( 5, 6 ) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            // Since we didn't alter the table, there's nothing else to do here.
+        }
+    };
+
+    static final Migration MIGRATION_6_7 = new Migration( 6, 7 ) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             // Since we didn't alter the table, there's nothing else to do here.

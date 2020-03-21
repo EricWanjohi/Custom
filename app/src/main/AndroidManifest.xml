@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.QueryActivity"></activity>
+        <activity
+            android:name=".ui.QueryActivity"
+            android:label="@string/leagues_in_country">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
         <activity
             android:name=".ui.LeagueDetailsActivity"
             android:label="Details">
@@ -23,13 +29,17 @@
         <activity
             android:name=".ui.Login"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+
         </activity>
         <activity
             android:name=".ui.Register"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="Leagues"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -37,10 +47,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.MainActivity"
-            android:label="Leagues"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

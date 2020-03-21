@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         leaguesViewModel.getLeaguesLiveData().observe( this, new Observer<LeaguesResult>() {
             @Override
             public void onChanged(LeaguesResult leaguesResult) {
-                //
+                //Add response data to arrayList.
                 List<League> leagues = leaguesResult.getLeagues();
                 leaguesList.addAll( leagues );
                 adapter.notifyDataSetChanged();

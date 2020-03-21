@@ -13,7 +13,7 @@ public interface SportsDbApi {
     @GET("api/v1/json/1/all_leagues.php")
     Call<LeaguesResult> getLeagues();
 
-    //Get All Leagues in a Country by country.
+    //Get All Leagues in a Country by countryItem.
     @GET("api/v1/json/1/search_all_leagues.php")
     Call<Country> getLeaguesByCountry(@Query("c") String country);
 
