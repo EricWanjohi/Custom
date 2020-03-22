@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         searchTermIntent.putExtra( Constants.LEAGUE_SEARCH_QUERY, searchQuery );
         startActivity( searchTermIntent );
         //Toast
-        Toast.makeText( this, "Searching " + searchQuery, Toast.LENGTH_SHORT ).show();
+        Toast.makeText( this, "Searching for " + searchQuery, Toast.LENGTH_SHORT ).show();
     }
 
     //Add to sharedPreference.

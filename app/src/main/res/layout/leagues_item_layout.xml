@@ -45,7 +45,7 @@
             android:paddingEnd="@dimen/padding8dp"
             android:text="@string/idLeague"
             android:textColor="@android:color/white"
-            android:textStyle="normal|bold" />
+            android:textStyle="italic" />
 
         <TextView
             android:id="@+id/strSport"
@@ -57,7 +57,7 @@
             android:paddingEnd="@dimen/padding16dp"
             android:text="@string/sport"
             android:textColor="@android:color/white"
-            android:textStyle="normal|bold" />
+            android:textStyle="italic" />
     </LinearLayout>
 
 

@@ -8,149 +8,152 @@ import androidx.room.TypeConverters;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import ke.co.droidsense.custom.Converters.LeaguesByCountryConverter;
 
+@Parcel
 @Entity(tableName = "countryItem")
 @TypeConverters(LeaguesByCountryConverter.class)
 public class countryItem {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    int id;
 
     @SerializedName("idLeague")
     @Expose
-    private String idLeague;
+    String idLeague;
     @SerializedName("idSoccerXML")
     @Expose
-    private String idSoccerXML;
+    String idSoccerXML;
     @SerializedName("idAPIfootball")
     @Expose
-    private String idAPIfootball;
+    String idAPIfootball;
     @SerializedName("strSport")
     @Expose
-    private String strSport;
+    String strSport;
     @SerializedName("strLeague")
     @Expose
-    private String strLeague;
+    String strLeague;
     @SerializedName("strLeagueAlternate")
     @Expose
-    private String strLeagueAlternate;
+    String strLeagueAlternate;
     @SerializedName("strDivision")
     @Expose
-    private String strDivision;
+    String strDivision;
     @SerializedName("idCup")
     @Expose
-    private String idCup;
+    String idCup;
     @SerializedName("strCurrentSeason")
     @Expose
-    private String strCurrentSeason;
+    String strCurrentSeason;
     @SerializedName("intFormedYear")
     @Expose
-    private String intFormedYear;
+    String intFormedYear;
     @SerializedName("dateFirstEvent")
     @Expose
-    private String dateFirstEvent;
+    String dateFirstEvent;
     @SerializedName("strGender")
     @Expose
-    private String strGender;
+    String strGender;
     @SerializedName("strCountry")
     @Expose
-    private String strCountry;
+    String strCountry;
     @SerializedName("strWebsite")
     @Expose
-    private String strWebsite;
+    String strWebsite;
     @SerializedName("strFacebook")
     @Expose
-    private String strFacebook;
+    String strFacebook;
     @SerializedName("strTwitter")
     @Expose
-    private String strTwitter;
+    String strTwitter;
     @SerializedName("strYoutube")
     @Expose
-    private String strYoutube;
+    String strYoutube;
     @SerializedName("strRSS")
     @Expose
-    private String strRSS;
+    String strRSS;
     @SerializedName("strDescriptionEN")
     @Expose
-    private String strDescriptionEN;
+    String strDescriptionEN;
     @SerializedName("strDescriptionDE")
     @Expose
-    private String strDescriptionDE;
+    String strDescriptionDE;
     @SerializedName("strDescriptionFR")
     @Expose
-    private String strDescriptionFR;
+    String strDescriptionFR;
     @SerializedName("strDescriptionIT")
     @Expose
-    private String strDescriptionIT;
+    String strDescriptionIT;
     @SerializedName("strDescriptionCN")
     @Expose
-    private String strDescriptionCN;
+    String strDescriptionCN;
     @SerializedName("strDescriptionJP")
     @Expose
-    private String strDescriptionJP;
+    String strDescriptionJP;
     @SerializedName("strDescriptionRU")
     @Expose
-    private String strDescriptionRU;
+    String strDescriptionRU;
     @SerializedName("strDescriptionES")
     @Expose
-    private String strDescriptionES;
+    String strDescriptionES;
     @SerializedName("strDescriptionPT")
     @Expose
-    private String strDescriptionPT;
+    String strDescriptionPT;
     @SerializedName("strDescriptionSE")
     @Expose
-    private String strDescriptionSE;
+    String strDescriptionSE;
     @SerializedName("strDescriptionNL")
     @Expose
-    private String strDescriptionNL;
+    String strDescriptionNL;
     @SerializedName("strDescriptionHU")
     @Expose
-    private String strDescriptionHU;
+    String strDescriptionHU;
     @SerializedName("strDescriptionNO")
     @Expose
-    private String strDescriptionNO;
+    String strDescriptionNO;
     @SerializedName("strDescriptionPL")
     @Expose
-    private String strDescriptionPL;
+    String strDescriptionPL;
     @SerializedName("strDescriptionIL")
     @Expose
-    private String strDescriptionIL;
+    String strDescriptionIL;
     @SerializedName("strFanart1")
     @Expose
-    private String strFanart1;
+    String strFanart1;
     @SerializedName("strFanart2")
     @Expose
-    private String strFanart2;
+    String strFanart2;
     @SerializedName("strFanart3")
     @Expose
-    private String strFanart3;
+    String strFanart3;
     @SerializedName("strFanart4")
     @Expose
-    private String strFanart4;
+    String strFanart4;
     @SerializedName("strBanner")
     @Expose
-    private String strBanner;
+    String strBanner;
     @SerializedName("strBadge")
     @Expose
-    private String strBadge;
+    String strBadge;
     @SerializedName("strLogo")
     @Expose
-    private String strLogo;
+    String strLogo;
     @SerializedName("strPoster")
     @Expose
-    private String strPoster;
+    String strPoster;
     @SerializedName("strTrophy")
     @Expose
-    private String strTrophy;
+    String strTrophy;
     @SerializedName("strNaming")
     @Expose
-    private String strNaming;
+    String strNaming;
     @SerializedName("strComplete")
     @Expose
-    private String strComplete;
+    String strComplete;
     @SerializedName("strLocked")
     @Expose
-    private String strLocked;
+    String strLocked;
 
     //Empty constructor.
     public countryItem() {

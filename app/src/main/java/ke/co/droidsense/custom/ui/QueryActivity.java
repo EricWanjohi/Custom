@@ -3,14 +3,13 @@ package ke.co.droidsense.custom.ui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ import ke.co.droidsense.custom.adapters.LeaguesByCountryAdapter;
 import ke.co.droidsense.custom.models.Country;
 import ke.co.droidsense.custom.models.countryItem;
 
-public class QueryActivity extends AppCompatActivity {
+public class QueryActivity extends AppCompatActivity implements View.OnClickListener {
     //Member variables.
     @BindView(R.id.queryRecyclerView)
     RecyclerView recyclerView;
@@ -50,6 +49,7 @@ public class QueryActivity extends AppCompatActivity {
         //Progress Dialog.
         progressDialog = new ProgressDialog( this );
         progressDialog.setMessage( "Fetching Leagues in " + query );
+        progressDialog.setCancelable( false );
         progressDialog.show();
 
         //Get Intent Extras.
@@ -64,6 +64,7 @@ public class QueryActivity extends AppCompatActivity {
 
         //Get Leagues by Country.
         getLeagueByCountry( query );
+
     }
 
     //Get Queried Leagues by countryItem string.
@@ -74,20 +75,19 @@ public class QueryActivity extends AppCompatActivity {
         leaguesByCountryViewModel.getCountryLiveData().observe( this, new Observer<Country>() {
             @Override
             public void onChanged(Country country) {
-                //TODO: Create check for null response returned.
+                //Create check for null response returned.
+                if (country.getCountryItems() == null) {
+                    progressDialog.dismiss();
+                    setContentView( R.layout.no_item_found );
+                } else {
+                    //Add response data to arrayList.
+                    List<countryItem> countryItems = country.getCountryItems();
+                    country_Item_list.addAll( countryItems );
+                    leaguesByCountryAdapter.notifyDataSetChanged();
 
-                //Snack bar on the UI.
-                Snackbar.make( getWindow().getDecorView(), "Data is up: YAAAAY!!!", Snackbar.LENGTH_LONG )
-                        .setAction( "OK", null )
-                        .show();
-
-                //Add response data to arrayList.
-                List<countryItem> countryItems = country.getCountryItems();
-                country_Item_list.addAll( countryItems );
-                leaguesByCountryAdapter.notifyDataSetChanged();
-
-                //Dismiss Progress Dialog.
-                progressDialog.dismiss();
+                    //Dismiss Progress Dialog.
+                    progressDialog.dismiss();
+                }
             }
         } );
     }
@@ -109,6 +109,11 @@ public class QueryActivity extends AppCompatActivity {
             //Notify adapter of changes.
             leaguesByCountryAdapter.notifyDataSetChanged();
         }
+
+    }
+
+    @Override
+    public void onClick(View view) {
 
     }
 }

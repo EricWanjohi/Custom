@@ -30,4 +30,5 @@
     <string name="logout">Logout</string>
     <string name="leagues_in_country">Leagues in country</string>
     <string name="strWebsite">Website</string>
+    <string name="no_item_found_layout">No League with given name found. "\n" Try searching with the full country name.</string>
 </resources>

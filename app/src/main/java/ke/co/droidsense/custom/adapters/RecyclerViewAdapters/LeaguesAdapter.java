@@ -1,7 +1,6 @@
 package ke.co.droidsense.custom.adapters.RecyclerViewAdapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.Items.League;
-import ke.co.droidsense.custom.ui.LeagueDetailsActivity;
 
 public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHolder> {
     //Member variables.
@@ -42,7 +40,7 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
         //Bind Data.
         holder.strLeague.setText( league.getStrLeague() );
         holder.strSport.setText( league.getStrSport() );
-        holder.idLeague.setText( league.getIdLeague() );
+        holder.idLeague.setText( "ID: " + league.getIdLeague() );
 
         //Set Tag on item
         holder.itemView.setTag( league );
@@ -85,12 +83,6 @@ public class LeaguesAdapter extends RecyclerView.Adapter<LeaguesAdapter.ViewHold
             if (view.getTag() == league) {
                 //Toast
                 Toast.makeText( context, league.getStrLeague(), Toast.LENGTH_LONG ).show();
-                //Use intent to transition to new Details Activity.
-                Intent leagueDetailsIntent = new Intent( context, LeagueDetailsActivity.class );
-                leagueDetailsIntent.putExtra( "idLeague", league.getId() );
-//                leagueDetailsIntent.putExtra( "position", position );
-//                leagueDetailsIntent.putExtra( "leaguesList", Parcels.wrap( leagueList ));
-                context.startActivity( leagueDetailsIntent );
             }
         }
     }

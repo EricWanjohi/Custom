@@ -9,32 +9,32 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.List;
 
 import ke.co.droidsense.custom.Fragments.LeagueDetailsFragment;
-import ke.co.droidsense.custom.models.Items.LeagueData;
+import ke.co.droidsense.custom.models.countryItem;
 
 public class LeagueDetailsPagerAdapter extends FragmentPagerAdapter {
     //Member variables.
-    private List<LeagueData> leagueDataList;
+    private List<countryItem> countryItemList;
 
     //Constructor.
-    public LeagueDetailsPagerAdapter(@NonNull FragmentManager fm, int behavior, List<LeagueData> leagueData) {
+    public LeagueDetailsPagerAdapter(@NonNull FragmentManager fm, int behavior, List<countryItem> countryItem) {
         super( fm, behavior );
-        leagueDataList = leagueData;
+        countryItemList = countryItem;
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return LeagueDetailsFragment.newInstance( leagueDataList.get( position ) );
+        return LeagueDetailsFragment.newInstance( countryItemList.get( position ) );
     }
 
     @Override
     public int getCount() {
-        return leagueDataList.size();
+        return countryItemList.size();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return leagueDataList.get( position ).getStrLeague();
+        return countryItemList.get( position ).getStrLeague();
     }
 }

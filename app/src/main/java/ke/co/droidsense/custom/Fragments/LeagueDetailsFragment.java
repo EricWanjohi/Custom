@@ -20,7 +20,7 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ke.co.droidsense.custom.R;
-import ke.co.droidsense.custom.models.Items.LeagueData;
+import ke.co.droidsense.custom.models.countryItem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,7 +49,7 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
     TextView strDescriptionEN;
     @BindView(R.id.strLeague)
     TextView strLeague;
-    private LeagueData leagueData;
+    private countryItem leagueData;
 
     //ButterKnife.
 
@@ -59,11 +59,11 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
     }
 
     //Create new Instance of LeagueDetailsFragment.
-    public static LeagueDetailsFragment newInstance(LeagueData leagueData) {
+    public static LeagueDetailsFragment newInstance(countryItem countryItem) {
         //
         LeagueDetailsFragment leagueDetailsFragment = new LeagueDetailsFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable( "leagueData", Parcels.wrap( leagueData ) );
+        bundle.putParcelable( "leagueData", Parcels.wrap( countryItem ) );
         leagueDetailsFragment.setArguments( bundle );
 
         return leagueDetailsFragment;

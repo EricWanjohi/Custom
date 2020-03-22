@@ -12,7 +12,7 @@
     <color name="blueGrey900">#263238</color>
     <color name="blueGrey500">#607D8B</color>
     <color name="blueGrey700">#455A64</color>
-    <color name="whiteTheme">#ffffff</color>
+    <color name="whiteTheme">#FFFFFF</color>
     <color name="darkGreen">#32cb00</color>
     <color name="darkerDark">#018F01</color>
 </resources>

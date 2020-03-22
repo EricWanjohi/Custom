@@ -13,10 +13,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.countryItem;
 import timber.log.Timber;
@@ -60,7 +63,6 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
         //Bind Image.
         Picasso.get().load( countryItem.getStrBadge() ).resize( MAX_HEIGHT, MAX_WIDTH ).centerCrop().into( holder.strBadge );
 
-
         //Set Tag on Item.
         holder.itemView.setTag( countryItem );
     }
@@ -74,7 +76,7 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //Member variables.
         private TextView strLeague, idLeague, strSport, strCurrentSeason, intFormedYear, strDivision, strDescriptionEN, strWebsite;
-        private ImageView strBadge;
+        private ImageView strBadge, strFavourites;
 
         //ViewHolder.
         public ViewHolder(@NonNull View itemView) {
@@ -90,9 +92,14 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
             strDescriptionEN = itemView.findViewById( R.id.strDescriptionEN );
             strWebsite = itemView.findViewById( R.id.strWebsite );
             strBadge = itemView.findViewById( R.id.strBadge );
+            strFavourites = itemView.findViewById( R.id.strFavourite );
 
             //Set Click Listeners
             strWebsite.setOnClickListener( this );
+            strFavourites.setOnClickListener( this );
+
+            //Set Click listener on item.
+//            itemView.setOnClickListener( this );
 
         }
 
@@ -100,14 +107,54 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
         public void onClick(View view) {
             //get Tag
             countryItem country = (countryItem) view.getTag();
+            int position = getLayoutPosition();
+
+            //Transition.
+            if (view.getTag() == country) {
+                //Use intent to transition to new Details Activity.
+//                Intent leagueDetailsIntent = new Intent( context, LeagueDetailsActivity.class );
+//                leagueDetailsIntent.putExtra( "position", position );
+//                leagueDetailsIntent.putExtra( "league", Parcels.wrap( country ));
+//                context.startActivity( leagueDetailsIntent );
+            }
 
             //Check item clicked.
             switch (view.getId()) {
 
-                //Case FaceBook.
+                //Case Website.
                 case R.id.strWebsite:
-                    //Check if link is null.
-                    checkIfWebsiteUrl( country );
+                    //TODO: Check if link is null.
+//                    checkIfWebsiteUrl( country );
+                    //Toast.
+                    Toast.makeText( context, "Website coming soon...", Toast.LENGTH_SHORT ).show();
+                    break;
+
+                //Case Favourites.
+                case R.id.strFavourite:
+                    //Check if Favourites image clicked to enable saving to favourites list.
+                    boolean isFavourite = false;
+
+                    //Toggle between adding and removing from favourites list.
+                    if (isFavourite ^= true) {
+                        //Save and switch image .
+                        DatabaseReference favouriteLeaguesReference = FirebaseDatabase
+                                .getInstance()
+                                .getReference();
+
+                        favouriteLeaguesReference.child( Constants.FAVOURITE_LEAGUES )
+                                .push()
+                                .setValue( country );
+
+                        //Switch icon
+//                            strFavourites.setImageIcon( R.drawable.ic_favorite_white_48dp );
+
+                        //Toast to user.
+                        Toast.makeText( context, "Saved to Favourites.", Toast.LENGTH_SHORT ).show();
+                    } else {
+                        //Toast to user.
+                        Toast.makeText( context, "Removed from Favourites.", Toast.LENGTH_SHORT ).show();
+                    }
+                    break;
             }
         }
     }
