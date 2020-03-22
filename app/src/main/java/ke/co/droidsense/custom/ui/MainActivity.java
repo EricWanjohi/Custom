@@ -19,12 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import ke.co.droidsense.custom.ApiInterface.SportsDbApi;
 import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.ViewModels.LeaguesViewModel;
@@ -35,7 +36,6 @@ import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
     //Member Variables.
-    private SportsDbApi sportsDbApi;
     @BindView(R.id.leaguesRecyclerView)
     RecyclerView recyclerView;
     private LeaguesAdapter adapter;
@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference searchQueryDatabaseReference;
+    private String saveLeague = Constants.LEAGUE_SEARCH_QUERY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         //Initialization.
         Timber.plant( new Timber.DebugTree() );
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        searchQueryDatabaseReference = firebaseDatabase.getReference();
 
         //Progress Bar.
         progressDialog = new ProgressDialog( this );
@@ -148,9 +153,12 @@ public class MainActivity extends AppCompatActivity {
 
     //Transition to LeagueActivity to show search item.
     private void getLeagueQueryData(String searchQuery) {
+        //Save query to firebase.
+        searchQueryDatabaseReference.child( saveLeague ).push().setValue( searchQuery );
+
         //Create Intent to transition to search activity
         Intent searchTermIntent = new Intent( MainActivity.this, QueryActivity.class );
-        searchTermIntent.putExtra( Constants.SEARCH_QUERY, searchQuery );
+        searchTermIntent.putExtra( Constants.LEAGUE_SEARCH_QUERY, searchQuery );
         startActivity( searchTermIntent );
         //Toast
         Toast.makeText( this, "Searching " + searchQuery, Toast.LENGTH_SHORT ).show();
@@ -159,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     //Add to sharedPreference.
     private void addToSharedPreference(String query) {
         //Use Editor to add item
-        editor.putString( Constants.SEARCH_QUERY, query ).apply();
+        editor.putString( Constants.LEAGUE_SEARCH_QUERY, query ).apply();
     }
 
     @Override

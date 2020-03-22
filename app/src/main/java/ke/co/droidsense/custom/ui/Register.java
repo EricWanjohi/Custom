@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.User;
 
@@ -34,23 +35,24 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     @BindView(R.id.sign_up_btn)
     Button signUpButton;
     @BindView(R.id.email)
-    EditText email;
+    TextInputLayout email;
     @BindView(R.id.phone)
-    EditText phone;
+    TextInputLayout phone;
     @BindView(R.id.password)
-    EditText password;
+    TextInputLayout password;
     @BindView(R.id.confirm_password)
-    EditText confirm_password;
+    TextInputLayout confirm_password;
     @BindView(R.id.full_name)
-    EditText full_name;
+    TextInputLayout full_name;
     @BindView(R.id.register_text)
     TextView registerHeader;
     FirebaseUser firebaseUser;
+    private String UserData = Constants.USER;
 
 
     //FirebaseDatabase and DataReference.
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference registeredAccountsDatabaseReference;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private ProgressDialog progressDialog;
@@ -82,7 +84,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         //Firebase Auth.
         //Init FirebaseDatabase and DatabaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        registeredAccountsDatabaseReference = firebaseDatabase.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
         //createAuthStateListener.
@@ -130,7 +132,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         if (authStateListener != null) {
             firebaseAuth.removeAuthStateListener( authStateListener );
         }
-        FirebaseAuth.getInstance().signOut();
     }
 
     private void createAuthProgressDialog() {
@@ -168,7 +169,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     //Validate Email Format.
     private boolean isValidEmail(String emailText) {
-        boolean isGoodEmail = (emailText != null && Patterns.EMAIL_ADDRESS.matcher( email.getText().toString() ).matches());
+        boolean isGoodEmail = (emailText != null && Patterns.EMAIL_ADDRESS.matcher( email.getEditText().getText().toString() ).matches());
         //Email.
         if (!isGoodEmail) {
             //Set Error.
@@ -213,11 +214,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private void createNewUser() {
 
         //Get Strings from Text input.
-        emailText = email.getText().toString().trim();
-        phoneText = phone.getText().toString().trim();
-        passwordText = password.getText().toString().trim();
-        confirmPasswordText = confirm_password.getText().toString().trim();
-        fullName = full_name.getText().toString().trim();
+        emailText = email.getEditText().getText().toString().trim();
+        phoneText = phone.getEditText().getText().toString().trim();
+        passwordText = password.getEditText().getText().toString().trim();
+        confirmPasswordText = confirm_password.getEditText().getText().toString().trim();
+        fullName = full_name.getEditText().getText().toString().trim();
 
         //Validate Inputs.
         boolean validEmail = isValidEmail( emailText );
@@ -233,7 +234,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         User user = new User( fullName, emailText, phoneText, passwordText, confirmPasswordText );
 
         //Save value to firebase.
-        databaseReference.child( phoneText ).setValue( user );
+        registeredAccountsDatabaseReference.child( UserData ).push().setValue( user );
 
         //Create User with Email and password.
         firebaseAuth.createUserWithEmailAndPassword( emailText, passwordText )
@@ -246,6 +247,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            registeredAccountsDatabaseReference.child( UserData ).push().setValue( firebaseUser );
 
                         } else {
                             // If sign in fails, display a message to the user.

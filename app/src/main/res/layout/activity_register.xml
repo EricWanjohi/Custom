@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blueGrey900"
     tools:context=".ui.Register">
 
@@ -26,77 +27,111 @@
             android:textSize="30sp"
             android:textStyle="bold|normal" />
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/full_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/padding4dp"
-            android:background="@color/whiteTheme"
-            android:gravity="center"
-            android:hint="@string/full_name"
-            android:inputType="text"
-            android:padding="@dimen/padding16dp"
-            android:textColor="@android:color/black"
-            android:textStyle="italic" />
+            android:layout_height="wrap_content">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding4dp"
+                android:background="@color/whiteTheme"
+                android:gravity="start"
+                android:hint="@string/full_name"
+                android:inputType="text"
+                android:padding="@dimen/padding16dp"
+                android:textColor="@android:color/black"
+                android:textStyle="italic" />
 
-        <EditText
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/padding4dp"
-            android:background="@color/whiteTheme"
-            android:gravity="center"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:padding="@dimen/padding16dp"
-            android:textColor="@android:color/black"
-            android:textStyle="italic" />
+            android:layout_height="wrap_content">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding4dp"
+                android:background="@color/whiteTheme"
+                android:gravity="start"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/padding16dp"
+                android:textColor="@android:color/black"
+                android:textStyle="italic" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phone"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding4dp"
+                android:background="@color/whiteTheme"
+                android:gravity="start"
+                android:hint="@string/phone"
+                android:inputType="phone"
+                android:padding="@dimen/padding16dp"
+                android:textColor="@android:color/black"
+                android:textStyle="italic" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/padding4dp"
-            android:background="@color/whiteTheme"
-            android:gravity="center"
-            android:hint="@string/phone"
-            android:inputType="phone"
-            android:padding="@dimen/padding16dp"
-            android:textColor="@android:color/black"
-            android:textStyle="italic" />
-
-
-        <EditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/padding4dp"
-            android:background="@color/whiteTheme"
-            android:gravity="center"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:padding="@dimen/padding16dp"
-            android:textColor="@android:color/black"
-            android:textStyle="italic" />
+            app:passwordToggleEnabled="true">
 
-        <EditText
-            android:id="@+id/confirm_password"
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding4dp"
+                android:background="@color/whiteTheme"
+                android:gravity="start"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="@dimen/padding16dp"
+                android:textColor="@android:color/black"
+                android:textStyle="italic" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/padding4dp"
-            android:background="@color/whiteTheme"
-            android:gravity="center"
-            android:hint="@string/confirm_password"
-            android:inputType="textPassword"
-            android:padding="@dimen/padding16dp"
-            android:textColor="@android:color/black"
-            android:textStyle="italic" />
+            android:id="@+id/confirm_password"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding4dp"
+                android:background="@color/whiteTheme"
+                android:gravity="start"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:padding="@dimen/padding16dp"
+                android:textColor="@android:color/black"
+                android:textStyle="italic" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/sign_up_btn"
@@ -123,4 +158,4 @@
             android:textSize="16sp" />
 
     </LinearLayout>
-</RelativeLayout>
+</ScrollView>

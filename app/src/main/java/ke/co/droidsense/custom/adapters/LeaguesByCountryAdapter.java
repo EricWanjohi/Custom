@@ -70,30 +70,6 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
         return country_Item_list.size();
     }
 
-    //Check if website url is null
-    private void checkIfWebsiteUrl(countryItem country) {
-        boolean isNull;
-        websiteString = country.getStrWebsite().trim();
-
-        //Perform Check.
-        if (websiteString.isEmpty()) {
-            isNull = true;
-            //Toast.
-            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
-        } else if (websiteString.equals( "" )) {
-            isNull = true;
-            //Toast.
-            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
-        } else {
-            isNull = false;
-            //Implicit Intent.
-            Uri websiteUri = Uri.parse( websiteString );
-            Intent website = new Intent( Intent.ACTION_VIEW, websiteUri );
-            Timber.tag( "Facebook Url: " ).e( websiteUri.toString() );
-            context.startActivity( website );
-        }
-    }
-
     //ViewHolder class.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //Member variables.
@@ -133,6 +109,30 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
                     //Check if link is null.
                     checkIfWebsiteUrl( country );
             }
+        }
+    }
+
+    //Check if website url is null
+    private void checkIfWebsiteUrl(countryItem country) {
+        boolean isNull;
+        websiteString = country.getStrWebsite().trim();
+
+        //Perform Check.
+        if (websiteString.isEmpty()) {
+            isNull = true;
+            //Toast.
+            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
+        } else if (websiteString.equals( "" )) {
+            isNull = true;
+            //Toast.
+            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
+        } else {
+            isNull = false;
+            //Implicit Intent.
+            Uri websiteUri = Uri.parse( websiteString );
+            Intent website = new Intent( Intent.ACTION_VIEW, websiteUri );
+            Timber.tag( "Facebook Url: " ).e( websiteUri.toString() );
+            context.startActivity( website );
         }
     }
 }

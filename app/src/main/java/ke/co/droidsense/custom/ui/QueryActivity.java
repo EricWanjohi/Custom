@@ -54,7 +54,7 @@ public class QueryActivity extends AppCompatActivity {
 
         //Get Intent Extras.
         intent = getIntent();
-        query = intent.getStringExtra( Constants.SEARCH_QUERY );
+        query = intent.getStringExtra( Constants.LEAGUE_SEARCH_QUERY );
 
         //Init ArrayList.
         country_Item_list = new ArrayList<>();
