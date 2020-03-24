@@ -10,7 +10,20 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/userProfile"
+        android:icon="@drawable/ic_account_box_white_24dp"
+        android:title="@string/user_profile"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/logout"
         android:title="@string/logout"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/userSettings"
+        android:icon="@drawable/ic_settings_applications_white_24dp"
+        android:title="@string/settings"
+        app:showAsAction="ifRoom" />
+
 </menu>

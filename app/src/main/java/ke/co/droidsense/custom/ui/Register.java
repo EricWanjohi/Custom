@@ -153,11 +153,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     //Validate passwords.
     private boolean isValidPassword(String pass, String confirmPass) {
         //Validate Password & Confirm Password Length.
-        if (passwordText.length() < 6) {
+        if (pass.length() < 6) {
             //set Error.
             password.setError( "Minimum length should be 6 characters." );
             return false;
-        } else if (!passwordText.equals( confirmPasswordText )) {
+        } else if (!pass.equals( confirmPass )) {
             //Set Error.
             confirm_password.setError( "Passwords do not match." );
             return false;
@@ -245,6 +245,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            Toast.makeText( Register.this, "Successfully Registered new User...", Toast.LENGTH_LONG ).show();
 
                         } else {
                             // If sign in fails, display a message to the user.

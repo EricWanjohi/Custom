@@ -177,8 +177,19 @@ public class MainActivity extends AppCompatActivity {
             //log out.
             Logout();
             return true;
+        } else if (item.getItemId() == R.id.userProfile) {
+            //Transition to User profile activity.
+            transitionToUserProfile();
+            return true;
         }
         return super.onOptionsItemSelected( item );
+    }
+
+    //Transition to User Profile.
+    private void transitionToUserProfile() {
+        //Create new Intent to transition.
+        Intent userProfileIntent = new Intent( this, UserProfileActivity.class );
+        startActivity( userProfileIntent );
     }
 
     //Logout

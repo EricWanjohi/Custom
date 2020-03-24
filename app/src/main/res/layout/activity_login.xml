@@ -37,11 +37,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/whiteTheme"
                 android:gravity="start"
                 android:hint="@string/email"
                 android:padding="@dimen/padding16dp"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:inputType="textEmailAddress"
                 android:textSize="16sp" />
 
@@ -57,12 +56,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/whiteTheme"
+                android:layout_gravity="start"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="@dimen/padding16dp"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>

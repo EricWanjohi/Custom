@@ -19,4 +19,5 @@
     <dimen name="padding16dp">16dp</dimen>
     <dimen name="smallDimens">15sp</dimen>
     <dimen name="padding20dp">20dp</dimen>
+    <dimen name="buttonTextSize">18sp</dimen>
 </resources>
