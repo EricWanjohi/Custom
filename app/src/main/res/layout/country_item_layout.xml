@@ -21,12 +21,14 @@
             android:text="@string/strLeague"
             android:textColor="@android:color/white"
             android:textSize="@dimen/headerDimens"
+            android:background="@color/dullBlack"
             android:textStyle="normal|bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@color/dullBlack"
             android:weightSum="2">
 
             <TextView
@@ -35,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:padding="@dimen/fragHeaderPadding"
                 android:singleLine="true"
                 android:text="@string/idLeague"
                 android:textColor="@android:color/white"
@@ -49,7 +50,6 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:padding="@dimen/fragHeaderPadding"
                 android:singleLine="true"
                 android:text="@string/strSport"
                 android:textColor="@android:color/white"
@@ -71,9 +71,10 @@
 
                 <ImageView
                     android:id="@+id/strBadge"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:contentDescription="@string/strBadge"
+                    android:layout_gravity="center"
                     android:padding="@dimen/padding8dp"
                     android:src="@drawable/common_full_open_on_phone" />
             </FrameLayout>
@@ -149,6 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@color/dullBlack"
             android:weightSum="2">
 
             <ImageView

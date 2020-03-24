@@ -15,4 +15,5 @@
     <color name="whiteTheme">#FFFFFF</color>
     <color name="darkGreen">#32cb00</color>
     <color name="darkerDark">#018F01</color>
+    <color name="dullBlack">#52000000</color>
 </resources>

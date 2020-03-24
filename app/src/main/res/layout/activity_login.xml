@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blueGrey900"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.Login">
 
 
@@ -23,25 +23,26 @@
             android:gravity="center"
             android:padding="@dimen/padding16dp"
             android:text="@string/logIn"
-            android:textColor="@color/whiteTheme"
+            android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold|italic" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/full_name"
+            android:id="@+id/email"
             android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/padding4dp"
                 android:background="@color/whiteTheme"
-                android:hint="@string/phone"
-                android:inputType="phone"
+                android:gravity="start"
+                android:hint="@string/email"
                 android:padding="@dimen/padding16dp"
                 android:textColor="@android:color/black"
+                android:inputType="textEmailAddress"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -50,13 +51,13 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:passwordToggleEnabled="true">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/padding4dp"
                 android:background="@color/whiteTheme"
                 android:hint="@string/password"
                 android:inputType="textPassword"

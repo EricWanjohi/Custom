@@ -73,26 +73,25 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         //Initializations.
         ButterKnife.bind( this );
 
-        //ProgressDialog.
-        createAuthProgressDialog();
-
         //Change Font.
         Typeface sun_valley_font = Typeface.createFromAsset( getAssets(), "fonts/Sun_Valley-Demo.ttf" );
         registerHeader.setTypeface( sun_valley_font );
 
-
-        //Firebase Auth.
         //Init FirebaseDatabase and DatabaseReference;
         firebaseDatabase = FirebaseDatabase.getInstance();
-        registeredAccountsDatabaseReference = firebaseDatabase.getReference();
+        registeredAccountsDatabaseReference = firebaseDatabase.getReference( Constants.USER );
+
+        //Firebase Auth.
         firebaseAuth = FirebaseAuth.getInstance();
 
         //createAuthStateListener.
         createAuthStateListener();
 
+        //ProgressDialog.
+        createAuthProgressDialog();
+
         //Set ClickListeners.
         signUpButton.setOnClickListener( this );
-
         loginButtonText.setOnClickListener( this );
 
     }
@@ -110,7 +109,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
             //Case signUpBtn.
             case R.id.sign_up_btn:
-                progressDialog.setMessage( "Creating Account..." );
                 //Create User.
                 createNewUser();
                 break;
@@ -234,7 +232,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         User user = new User( fullName, emailText, phoneText, passwordText, confirmPasswordText );
 
         //Save value to firebase.
-        registeredAccountsDatabaseReference.child( UserData ).push().setValue( user );
+        registeredAccountsDatabaseReference.push().setValue( user );
 
         //Create User with Email and password.
         firebaseAuth.createUserWithEmailAndPassword( emailText, passwordText )
@@ -247,7 +245,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            registeredAccountsDatabaseReference.child( UserData ).push().setValue( firebaseUser );
 
                         } else {
                             // If sign in fails, display a message to the user.
