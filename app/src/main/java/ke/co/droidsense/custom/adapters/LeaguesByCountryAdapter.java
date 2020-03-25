@@ -13,13 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import ke.co.droidsense.custom.Constants.Constants;
+import ke.co.droidsense.custom.Fragments.addToFavouriteLeaguesFragment;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.countryItem;
 import timber.log.Timber;
@@ -129,12 +127,14 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
                     //Toggle between adding and removing from favourites list.
                     if (!isFavourite) {
                         //Save and switch image .
-                        //Get Database reference.
-                        DatabaseReference favouriteLeaguesReference = FirebaseDatabase
-                                .getInstance()
-                                .getReference( Constants.FAVOURITE_LEAGUES );
-                        //Save item to firebase.
-                        favouriteLeaguesReference.push().setValue( country );
+                        //Todo: Create dialog fragment to request confirmation of user adding item to favourites list.
+                        new addToFavouriteLeaguesFragment();
+                        //Get Database reference. TODO; code block to be moved to individual activity enabling saving of item.
+//                        DatabaseReference favouriteLeaguesReference = FirebaseDatabase
+//                                .getInstance()
+//                                .getReference( Constants.FAVOURITE_LEAGUES );
+//                        //Save item to firebase.
+//                        favouriteLeaguesReference.push().setValue( country );
 
                         //Switch icon
 //                            strFavourites.setImageIcon( R.drawable.ic_favorite_white_48dp );
