@@ -99,24 +99,16 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
             strFavourites.setOnClickListener( this );
 
             //Set Click listener on item.
-//            itemView.setOnClickListener( this );
+            itemView.setOnClickListener( this );
 
         }
 
         @Override
         public void onClick(View view) {
-            //get Tag
+            //Get Tag
             countryItem country = (countryItem) view.getTag();
+            //Get Position.
             int position = getLayoutPosition();
-
-            //Transition.
-            if (view.getTag() == country) {
-                //Use intent to transition to new Details Activity.
-//                Intent leagueDetailsIntent = new Intent( context, LeagueDetailsActivity.class );
-//                leagueDetailsIntent.putExtra( "position", position );
-//                leagueDetailsIntent.putExtra( "league", Parcels.wrap( country ));
-//                context.startActivity( leagueDetailsIntent );
-            }
 
             //Check item clicked.
             switch (view.getId()) {
@@ -135,15 +127,14 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
                     boolean isFavourite = false;
 
                     //Toggle between adding and removing from favourites list.
-                    if (isFavourite ^= true) {
+                    if (!isFavourite) {
                         //Save and switch image .
+                        //Get Database reference.
                         DatabaseReference favouriteLeaguesReference = FirebaseDatabase
                                 .getInstance()
-                                .getReference();
-
-                        favouriteLeaguesReference.child( Constants.FAVOURITE_LEAGUES )
-                                .push()
-                                .setValue( country );
+                                .getReference( Constants.FAVOURITE_LEAGUES );
+                        //Save item to firebase.
+                        favouriteLeaguesReference.push().setValue( country );
 
                         //Switch icon
 //                            strFavourites.setImageIcon( R.drawable.ic_favorite_white_48dp );

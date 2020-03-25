@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         //Find menuItem.
         MenuItem menuItem = menu.findItem( R.id.searchView );
         SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint( "Search by Country" );
         searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

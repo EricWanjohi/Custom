@@ -1,8 +1,6 @@
 package ke.co.droidsense.custom.Fragments;
 
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +27,9 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
     //Member Variables.
     @BindView(R.id.strBadge)
     ImageView strBadge;
-    @BindView(R.id.strFacebook)
-    TextView strFacebook;
-    @BindView(R.id.strTwitter)
-    TextView strTwitter;
-    @BindView(R.id.strYoutube)
-    TextView strYoutube;
+    //    @BindView(R.id.strFacebook) TextView strFacebook;
+//    @BindView(R.id.strTwitter) TextView strTwitter;
+//    @BindView(R.id.strYoutube) TextView strYoutube;
     @BindView(R.id.idLeague)
     TextView idLeague;
     @BindView(R.id.strSport)
@@ -49,7 +44,8 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
     TextView strDescriptionEN;
     @BindView(R.id.strLeague)
     TextView strLeague;
-    private countryItem leagueData;
+
+    private countryItem country;
 
     //ButterKnife.
 
@@ -59,11 +55,12 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
     }
 
     //Create new Instance of LeagueDetailsFragment.
-    public static LeagueDetailsFragment newInstance(countryItem countryItem) {
-        //
+    public static LeagueDetailsFragment newInstance(countryItem country) {
+
+        //Bundle countryItem objects.
         LeagueDetailsFragment leagueDetailsFragment = new LeagueDetailsFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable( "leagueData", Parcels.wrap( countryItem ) );
+        bundle.putParcelable( "countryItem", Parcels.wrap( country ) );
         leagueDetailsFragment.setArguments( bundle );
 
         return leagueDetailsFragment;
@@ -75,12 +72,12 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
         super.onCreate( savedInstanceState );
 
         //Unwrap Parcels
-        leagueData = Parcels.unwrap( getArguments().getParcelable( "leagueData" ) );
+        country = Parcels.unwrap( getArguments().getParcelable( "countryItem" ) );
 
         //Set OnClickListeners.
-        strFacebook.setOnClickListener( this );
-        strTwitter.setOnClickListener( this );
-        strYoutube.setOnClickListener( this );
+//        strFacebook.setOnClickListener( this );
+//        strTwitter.setOnClickListener( this );
+//        strYoutube.setOnClickListener( this );
     }
 
     @Override
@@ -93,16 +90,16 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
         ButterKnife.bind( this, view );
 
         //Bind ImageView.
-        Picasso.get().load( leagueData.getStrBadge() ).centerCrop().into( strBadge );
+        Picasso.get().load( country.getStrBadge() ).centerCrop().into( strBadge );
 
         //Set Text.
-        idLeague.setText( leagueData.getIdLeague() );
-        strsport.setText( leagueData.getStrSport() );
-        strCurrentSeason.setText( leagueData.getStrCurrentSeason() );
-        intFormedYear.setText( leagueData.getIntFormedYear() );
-        strDivision.setText( leagueData.getStrDivision() );
-        strDescriptionEN.setText( leagueData.getStrDescriptionEN() );
-        strLeague.setText( leagueData.getStrLeague() );
+        idLeague.setText( country.getIdLeague() );
+        strsport.setText( country.getStrSport() );
+        strCurrentSeason.setText( country.getStrCurrentSeason() );
+        intFormedYear.setText( country.getIntFormedYear() );
+        strDivision.setText( country.getStrDivision() );
+        strDescriptionEN.setText( country.getStrDescriptionEN() );
+        strLeague.setText( country.getStrLeague() );
 
         return view;
     }
@@ -110,27 +107,27 @@ public class LeagueDetailsFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         //Switch statement
-        switch (view.getId()) {
-            //Case Facebook.
-            case R.id.strFacebook:
-                //Create new Implicit Intent.
-                Intent facebookPageIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( leagueData.getStrFacebook() ) );
-                startActivity( facebookPageIntent );
-                break;
-
-            //Case Twitter.
-            case R.id.strTwitter:
-                //create new Implicit Intent.
-                Intent twitterhandleIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( leagueData.getStrTwitter() ) );
-                startActivity( twitterhandleIntent );
-                break;
-
-            //Case Youtube.
-            case R.id.strYoutube:
-                //Create new Implicit Intent.
-                Intent youtubeChannelIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( leagueData.getStrYoutube() ) );
-                startActivity( youtubeChannelIntent );
-                break;
-        }
+//        switch (view.getId()) {
+//            //Case Facebook.
+//            case R.id.strFacebook:
+//                //Create new Implicit Intent.
+//                Intent facebookPageIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( leagueData.getStrFacebook() ) );
+//                startActivity( facebookPageIntent );
+//                break;
+//
+//            //Case Twitter.
+//            case R.id.strTwitter:
+//                //create new Implicit Intent.
+//                Intent twitterhandleIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( leagueData.getStrTwitter() ) );
+//                startActivity( twitterhandleIntent );
+//                break;
+//
+//            //Case Youtube.
+//            case R.id.strYoutube:
+//                //Create new Implicit Intent.
+//                Intent youtubeChannelIntent = new Intent( Intent.ACTION_VIEW, Uri.parse( leagueData.getStrYoutube() ) );
+//                startActivity( youtubeChannelIntent );
+//                break;
+//        }
     }
 }

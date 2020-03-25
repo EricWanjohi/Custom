@@ -32,7 +32,7 @@ public class LeagueDetailsActivity extends AppCompatActivity {
         //Initializations.
         ButterKnife.bind( this );
 
-        leagueDataList = Parcels.unwrap( getIntent().getParcelableExtra( "league" ) );
+        leagueDataList = Parcels.unwrap( getIntent().getParcelableExtra( "favouriteLeagues" ) );
         int startingPosition = getIntent().getIntExtra( "position", 0 );
 
         //Init Adapter.
