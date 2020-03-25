@@ -3,11 +3,14 @@ package ke.co.droidsense.custom.ui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.ViewModels.LeaguesViewModel;
@@ -34,10 +38,12 @@ import ke.co.droidsense.custom.models.Items.League;
 import ke.co.droidsense.custom.models.ResponseModels.LeaguesResult;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //Member Variables.
     @BindView(R.id.leaguesRecyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.api_resource)
+    TextView apiResource;
     private LeaguesAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
     private List<League> leaguesList;
@@ -55,25 +61,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView( R.layout.activity_main );
 
         //Initialization.
+        ButterKnife.bind( this );
         Timber.plant( new Timber.DebugTree() );
         firebaseDatabase = FirebaseDatabase.getInstance();
         searchQueryDatabaseReference = firebaseDatabase.getReference();
 
         //Progress Bar.
-        progressDialog = new ProgressDialog( this );
-        progressDialog.setMessage( "Fetching Leagues..." );
-        progressDialog.show();
+        createProgressDialog();
 
         //Initialize items
-        recyclerView = findViewById( R.id.leaguesRecyclerView );
         leaguesList = new ArrayList<>();
 
         //Set up recyclerView.
         setupRecyclerView();
 
+        //Set Click Listeners.
+        apiResource.setOnClickListener( this );
+
         //Get Data from Api.
         getLeaguesData();
 
+    }
+
+    private void createProgressDialog() {
+        progressDialog = new ProgressDialog( this );
+        progressDialog.setMessage( "Fetching Leagues..." );
+        progressDialog.show();
     }
 
     //Setup Recycler.
@@ -201,5 +214,16 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
         startActivity( intent );
         finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+        //Check and handle view clicked.
+        if (view.getId() == R.id.api_resource) {
+            //Create Implicit Intent.
+            Uri apiResourceUri = Uri.parse( "https://www.thesportsdb.com/api.php" );
+            Intent apiResourceIntent = new Intent( Intent.ACTION_VIEW, apiResourceUri );
+            startActivity( apiResourceIntent );
+        }
     }
 }
