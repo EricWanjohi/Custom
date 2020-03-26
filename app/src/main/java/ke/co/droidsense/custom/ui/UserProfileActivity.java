@@ -1,7 +1,6 @@
 package ke.co.droidsense.custom.ui;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -91,6 +90,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 //Create User object.
                 user = dataSnapshot.getValue( User.class );
 
+                //Strings
+                assert user != null;
+                String uName = user.getFullName();
+                String uEmail = user.getEmail();
+
                 //Get User id
                 userId = currentUser.getUid();
 
@@ -98,19 +102,14 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 Timber.tag( "UserId" ).e( userId );
 
                 //Get Specific user reference.
-                userSpecificReference = firebaseDatabase.getReference().child( Constants.USER ).child( "User" );
+                userSpecificReference = firebaseDatabase.getReference( Constants.USER );
 
                 //Set Text on the views.
-                assert user != null;
                 if (currentUser.getUid().equals( userId )) {
 
-                    //Strings
-                    String uName = dataSnapshot.child( userId ).child( "fullName" ).getValue( String.class );
-                    String uEmail = dataSnapshot.child( userId ).child( "email" ).getValue( String.class );
-
                     //Set View Strings.
-                    userName.setText( uName );
-                    userMail.setText( uEmail );
+                    userName.setText( user.getPhone() );
+                    userMail.setText( user.getEmail() );
                 }
             }
 
@@ -126,11 +125,13 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private void editUserDetails(String email) {
         //Update data on firebase.
         //Check string is not empty.
-        if (!TextUtils.isEmpty( email )) {
+        if (email != null && !email.equals( "" )) {
+            //true
             currentUser.updateEmail( email );
             //Get New details.
             getUserDetails();
         } else {
+            //false
             //Toast to user.
             Toast.makeText( this, "Email is empty...", Toast.LENGTH_SHORT ).show();
         }

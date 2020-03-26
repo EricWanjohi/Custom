@@ -13,8 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.List;
 import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.countryItem;
+import timber.log.Timber;
 
 public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCountryAdapter.ViewHolder> {
     private static final int MAX_WIDTH = 100;
@@ -78,22 +82,40 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
 
     //Remove Country item from favourites
     private void removeCountryItemFromFavourites(countryItem countryItem) {
-        //Get and loop through List of saved items
-        for (int i = 0; i <= countryItemSaved.size(); i++) {
+        //Get DatabaseReference.
+        favouriteLeaguesReference = FirebaseDatabase
+                .getInstance()
+                .getReference( Constants.FAVOURITE_LEAGUES )
+                .child( Constants.SAVED_LEAGUE );
 
-            //Remove from list
-            countryItemSaved.remove( countryItem );
+        //Get strLeague name
+        String strLeague = countryItem.getStrLeague();
 
-            //Get DatabaseReference.
-            favouriteLeaguesReference = FirebaseDatabase
-                    .getInstance()
-                    .getReference( Constants.FAVOURITE_LEAGUES )
-                    .child( Constants.SAVED_LEAGUE );
+        //Get item to delete.
+        favouriteLeaguesReference.orderByChild( "strLeague" ).equalTo( strLeague )
+                .addListenerForSingleValueEvent( new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        //Create for loop to get specific child object.
+                        for (DataSnapshot childDataSnapShot : dataSnapshot.getChildren()) {
 
-            //Remove item value from firebase.
-            Toast.makeText( context, "Removing..." + countryItem, Toast.LENGTH_LONG ).show();
+                            //Get child reference and set value to null.
+                            childDataSnapShot.getRef().setValue( null );
+                        }
 
-        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        //Set Error
+                        Timber.tag( "Database Error: " ).e( databaseError.toException().getMessage() );
+                    }
+                } );
+
+
+        //Remove item value from firebase.
+        Toast.makeText( context, countryItem.getStrLeague() + " removed from favourites.", Toast.LENGTH_LONG ).show();
+
     }
 
     //Add Country item to favourites.
@@ -198,7 +220,7 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
                 //Case Favourites.
                 case R.id.strFavourite:
                     //Boolean variable isFavourite.
-                    boolean isFavourite = false;
+                    boolean isFavourite = true;
 
                     //Check if Favourites image clicked to enable saving to favourites list.
                     if (!isFavourite) {
@@ -210,20 +232,23 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
                         Toast.makeText( context, "Saved to Favourites.", Toast.LENGTH_SHORT ).show();
 
                         //Set Image drawable.
-
+                        strFavourites.setImageResource( R.drawable.ic_favorite_white_48dp );
 
                         //Reset boolean variable
-                        isFavourite = true;
+                        isFavourite = false;
                     } else {
 
                         //Toast to user.
-                        Toast.makeText( context, "Removed from Favourites.", Toast.LENGTH_SHORT ).show();
+//                        Toast.makeText( context, "Removed from Favourites.", Toast.LENGTH_SHORT ).show();
 
                         //Remove item at position 0 from Favourites.
                         removeCountryItemFromFavourites( countryItem );
 
+                        //Set Image drawable.
+                        strFavourites.setImageResource( R.drawable.ic_favorite_border_white_48dp );
+
                         //Reset boolean variable
-                        isFavourite = false;
+                        isFavourite = true;
                     }
                     break;
             }
