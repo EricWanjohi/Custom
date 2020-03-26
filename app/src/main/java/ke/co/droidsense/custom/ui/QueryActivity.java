@@ -46,15 +46,14 @@ public class QueryActivity extends AppCompatActivity implements View.OnClickList
         //Initializations.
         ButterKnife.bind( this );
 
-        //Progress Dialog.
-        progressDialog = new ProgressDialog( this );
-        progressDialog.setMessage( "Fetching Leagues in " + query );
-        progressDialog.setCancelable( false );
-        progressDialog.show();
-
         //Get Intent Extras.
         intent = getIntent();
         query = intent.getStringExtra( Constants.LEAGUE_SEARCH_QUERY );
+
+        //Progress Dialog.
+        progressDialog = new ProgressDialog( this );
+        progressDialog.setMessage( "Fetching Leagues in " + query );
+        progressDialog.show();
 
         //Init ArrayList.
         country_Item_list = new ArrayList<>();

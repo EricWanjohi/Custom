@@ -23,7 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ke.co.droidsense.custom.R;
-import timber.log.Timber;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     //Member Variables.
@@ -143,8 +142,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         loginEmailText = email.getEditText().getText().toString().trim();
         passwordText = password.getEditText().getText().toString().trim();
 
-        Timber.tag( "Phone: " ).e( loginEmailText );
-        Timber.tag( "Password: " ).e( passwordText );
         //Check input validity.
         boolean validEmail = isEmailValid( loginEmailText );
         boolean validPassword = isPasswordValid( passwordText );

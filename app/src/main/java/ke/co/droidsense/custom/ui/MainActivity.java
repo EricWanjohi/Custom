@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Find menuItem.
         MenuItem menuItem = menu.findItem( R.id.searchView );
         SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint( "Search by Country" );
+        searchView.setQueryHint( "Search by country" );
         searchView.setOnQueryTextListener( new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

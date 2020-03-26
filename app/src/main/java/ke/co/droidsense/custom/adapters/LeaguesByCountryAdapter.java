@@ -13,14 +13,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import ke.co.droidsense.custom.Fragments.addToFavouriteLeaguesFragment;
+import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.countryItem;
-import timber.log.Timber;
 
 public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCountryAdapter.ViewHolder> {
     private static final int MAX_WIDTH = 100;
@@ -29,6 +31,10 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
     private List<countryItem> country_Item_list;
     private Context context;
     private String websiteString;
+    private ke.co.droidsense.custom.models.countryItem countryItem;
+    private List<ke.co.droidsense.custom.models.countryItem> countryItemSaved;
+    private DatabaseReference favouriteLeaguesReference;
+    private String http;
 
     //Constructor
     public LeaguesByCountryAdapter(List<countryItem> country_Item_list, Context context) {
@@ -47,7 +53,7 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Get Item holder
-        countryItem countryItem = country_Item_list.get( position );
+        countryItem = country_Item_list.get( position );
 
         //Bind View.
         holder.strLeague.setText( countryItem.getStrLeague() );
@@ -68,6 +74,77 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
     @Override
     public int getItemCount() {
         return country_Item_list.size();
+    }
+
+    //Remove Country item from favourites
+    private void removeCountryItemFromFavourites(countryItem countryItem) {
+        //Get and loop through List of saved items
+        for (int i = 0; i <= countryItemSaved.size(); i++) {
+
+            //Remove from list
+            countryItemSaved.remove( countryItem );
+
+            //Get DatabaseReference.
+            favouriteLeaguesReference = FirebaseDatabase
+                    .getInstance()
+                    .getReference( Constants.FAVOURITE_LEAGUES )
+                    .child( Constants.SAVED_LEAGUE );
+
+            //Remove item value from firebase.
+            Toast.makeText( context, "Removing..." + countryItem, Toast.LENGTH_LONG ).show();
+
+        }
+    }
+
+    //Add Country item to favourites.
+    private void addCountryItemToFavourites(countryItem countryItem) {
+        //Create list holder
+        countryItemSaved = new ArrayList<>();
+
+        //Add to list.
+        countryItemSaved.add( countryItem );
+
+        //Get Database reference.
+        favouriteLeaguesReference = FirebaseDatabase
+                .getInstance()
+                .getReference( Constants.FAVOURITE_LEAGUES )
+                .child( Constants.SAVED_LEAGUE );
+
+        //Save item to firebase.
+        favouriteLeaguesReference.push().setValue( countryItem );
+    }
+
+    //Check if website url is null
+    private void checkIfWebsiteUrlIsOk() {
+
+        //Create String from object information.
+        websiteString = countryItem.getStrWebsite();
+
+        //Append string to websiteString object.
+        http = "http://";
+
+        //Perform Check.
+        if (websiteString != null && !websiteString.isEmpty()) {
+
+            //Implicit Intent.
+            Uri websiteUri = Uri.parse( http + websiteString );
+            Intent website = new Intent( Intent.ACTION_VIEW, websiteUri );
+
+            //Resolve activity if there is no browser detected.
+            if (website.resolveActivity( context.getPackageManager() ) != null) {
+                //Start Activity.
+                context.startActivity( website );
+
+                //Toast to user.
+                Toast.makeText( context, "Opening in browser...", Toast.LENGTH_SHORT ).show();
+            }
+
+        } else {
+
+            //Toast.
+            Toast.makeText( context, "We will notify you when " + countryItem.getStrLeague() + " add a link.", Toast.LENGTH_LONG ).show();
+
+        }
     }
 
     //ViewHolder class.
@@ -113,64 +190,43 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
 
                 //Case Website.
                 case R.id.strWebsite:
-                    //TODO: Check if link is null.
-//                    checkIfWebsiteUrl( country );
-                    //Toast.
-                    Toast.makeText( context, "Website coming soon...", Toast.LENGTH_SHORT ).show();
+
+                    //Check if the web url is ok
+                    checkIfWebsiteUrlIsOk();
                     break;
 
                 //Case Favourites.
                 case R.id.strFavourite:
-                    //Check if Favourites image clicked to enable saving to favourites list.
+                    //Boolean variable isFavourite.
                     boolean isFavourite = false;
 
-                    //Toggle between adding and removing from favourites list.
+                    //Check if Favourites image clicked to enable saving to favourites list.
                     if (!isFavourite) {
-                        //Save and switch image .
-                        //Todo: Create dialog fragment to request confirmation of user adding item to favourites list.
-                        new addToFavouriteLeaguesFragment();
-                        //Get Database reference. TODO; code block to be moved to individual activity enabling saving of item.
-//                        DatabaseReference favouriteLeaguesReference = FirebaseDatabase
-//                                .getInstance()
-//                                .getReference( Constants.FAVOURITE_LEAGUES );
-//                        //Save item to firebase.
-//                        favouriteLeaguesReference.push().setValue( country );
 
-                        //Switch icon
-//                            strFavourites.setImageIcon( R.drawable.ic_favorite_white_48dp );
+                        //Add item at position 0 to favourites.
+                        addCountryItemToFavourites( countryItem );
 
                         //Toast to user.
                         Toast.makeText( context, "Saved to Favourites.", Toast.LENGTH_SHORT ).show();
+
+                        //Set Image drawable.
+
+
+                        //Reset boolean variable
+                        isFavourite = true;
                     } else {
+
                         //Toast to user.
                         Toast.makeText( context, "Removed from Favourites.", Toast.LENGTH_SHORT ).show();
+
+                        //Remove item at position 0 from Favourites.
+                        removeCountryItemFromFavourites( countryItem );
+
+                        //Reset boolean variable
+                        isFavourite = false;
                     }
                     break;
             }
-        }
-    }
-
-    //Check if website url is null
-    private void checkIfWebsiteUrl(countryItem country) {
-        boolean isNull;
-        websiteString = country.getStrWebsite().trim();
-
-        //Perform Check.
-        if (websiteString.isEmpty()) {
-            isNull = true;
-            //Toast.
-            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
-        } else if (websiteString.equals( "" )) {
-            isNull = true;
-            //Toast.
-            Toast.makeText( context, "We will notify you when " + country.getStrLeague() + " adds a link.", Toast.LENGTH_SHORT ).show();
-        } else {
-            isNull = false;
-            //Implicit Intent.
-            Uri websiteUri = Uri.parse( websiteString );
-            Intent website = new Intent( Intent.ACTION_VIEW, websiteUri );
-            Timber.tag( "Facebook Url: " ).e( websiteUri.toString() );
-            context.startActivity( website );
         }
     }
 }

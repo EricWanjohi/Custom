@@ -46,9 +46,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     TextInputLayout full_name;
     @BindView(R.id.register_text)
     TextView registerHeader;
-    FirebaseUser firebaseUser;
-    private String UserData = Constants.USER;
-
 
     //FirebaseDatabase and DataReference.
     private FirebaseDatabase firebaseDatabase;
@@ -56,7 +53,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private ProgressDialog progressDialog;
-    User isUserRegistered;
 
     //String values.
     private String emailText;
@@ -245,7 +241,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                            Toast.makeText( Register.this, "Successfully Registered new User...", Toast.LENGTH_LONG ).show();
+                            Toast.makeText( Register.this, "Registration succeeded...", Toast.LENGTH_LONG ).show();
 
                         } else {
                             // If sign in fails, display a message to the user.
