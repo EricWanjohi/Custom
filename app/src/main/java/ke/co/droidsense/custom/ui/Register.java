@@ -19,14 +19,18 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.User;
+import timber.log.Timber;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
     //Member Variables.
@@ -239,8 +243,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         progressDialog.dismiss();
                         //Check if Task is successful.
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                            //Create User Profile using UserProfileChangeRequest class
+                            createUserProfile( Objects.requireNonNull( task.getResult() ).getUser() );
+                            //Toast
                             Toast.makeText( Register.this, "Registration succeeded...", Toast.LENGTH_LONG ).show();
 
                         } else {
@@ -249,5 +255,21 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         }
                     }
                 } );
+
+    }
+
+    //Create User Profile
+    private void createUserProfile(final FirebaseUser firebaseUser) {
+        //Use UserProfileChangeRequest builder patter.
+        UserProfileChangeRequest addProfileName = new UserProfileChangeRequest.Builder()
+                .setDisplayName( fullName )
+                .build();
+        firebaseUser.updateProfile( addProfileName ).addOnCompleteListener( new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //Log.
+                Timber.tag( "Display Name: " ).e( firebaseUser.getDisplayName() );
+            }
+        } );
     }
 }

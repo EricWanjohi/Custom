@@ -7,6 +7,7 @@ public class User {
     private String password;
     private String confirmPassword;
     private String fullName;
+    private String pushId;
 
     //Empty constructor.
     public User() {
@@ -61,5 +62,13 @@ public class User {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 }

@@ -132,8 +132,15 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
                 .getReference( Constants.FAVOURITE_LEAGUES )
                 .child( Constants.SAVED_LEAGUE );
 
+        //Get strLeague name
+        String strLeague = countryItem.getStrLeague();
+
         //Save item to firebase.
-        favouriteLeaguesReference.push().setValue( countryItem );
+        favouriteLeaguesReference.getRef().push().setValue( countryItem );
+
+
+        //Remove item value from firebase.
+        Toast.makeText( context, countryItem.getStrLeague() + " added to favourites.", Toast.LENGTH_LONG ).show();
     }
 
     //Check if website url is null
@@ -203,9 +210,9 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
         @Override
         public void onClick(View view) {
             //Get Tag
-            countryItem country = (countryItem) view.getTag();
-            //Get Position.
-            int position = getLayoutPosition();
+//            countryItem country = (countryItem) view.getTag();
+//            //Get Position.
+//            int position = getLayoutPosition();
 
             //Check item clicked.
             switch (view.getId()) {
@@ -220,16 +227,13 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
                 //Case Favourites.
                 case R.id.strFavourite:
                     //Boolean variable isFavourite.
-                    boolean isFavourite = true;
+                    boolean isFavourite = false;
 
                     //Check if Favourites image clicked to enable saving to favourites list.
-                    if (!isFavourite) {
+                    if (isFavourite ^= true) {
 
                         //Add item at position 0 to favourites.
                         addCountryItemToFavourites( countryItem );
-
-                        //Toast to user.
-                        Toast.makeText( context, "Saved to Favourites.", Toast.LENGTH_SHORT ).show();
 
                         //Set Image drawable.
                         strFavourites.setImageResource( R.drawable.ic_favorite_white_48dp );
