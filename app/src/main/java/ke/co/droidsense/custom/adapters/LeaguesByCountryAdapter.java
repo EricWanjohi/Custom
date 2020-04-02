@@ -136,7 +136,7 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
         String strLeague = countryItem.getStrLeague();
 
         //Save item to firebase.
-        favouriteLeaguesReference.getRef().push().setValue( countryItem );
+        favouriteLeaguesReference.push().setValue( countryItem );
 
 
         //Remove item value from firebase.
@@ -209,12 +209,7 @@ public class LeaguesByCountryAdapter extends RecyclerView.Adapter<LeaguesByCount
 
         @Override
         public void onClick(View view) {
-            //Get Tag
-//            countryItem country = (countryItem) view.getTag();
-//            //Get Position.
-//            int position = getLayoutPosition();
-
-            //Check item clicked.
+            //Create switch statement for efficiency reasons
             switch (view.getId()) {
 
                 //Case Website.

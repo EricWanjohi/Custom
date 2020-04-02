@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    android:background="@color/blueGrey900"
+    android:background="@color/whiteTheme"
     android:orientation="vertical"
     tools:context=".ui.UserProfileActivity">
 
     <RelativeLayout
+        android:id="@+id/prof_pic"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="100dp"
+        android:background="@color/blueGrey900">
 
         <ImageView
             android:id="@+id/userImage"
@@ -49,57 +50,44 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/lin_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/blueGrey900"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/prof_pic"
         android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@color/whiteTheme"
         android:padding="@dimen/padding16dp">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <TextView
             android:id="@+id/displayName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/blueGrey900">
-
-            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:hint="@string/displayName"
-                android:inputType="text"
-                android:minEms="6"
                 android:padding="@dimen/padding16dp"
-                android:textColor="@android:color/white" />
+            android:text="@string/full_name"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <TextView
             android:id="@+id/userPhone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/blueGrey900">
-
-            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:hint="@string/phone"
                 android:inputType="phone"
                 android:padding="@dimen/padding16dp"
-                android:textColor="@android:color/white" />
+            android:text="@string/phone"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        <TextView
             android:id="@+id/userEmailEdit"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/blueGrey900">
-
-            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -107,15 +95,17 @@
                 android:inputType="textEmailAddress"
                 android:padding="@dimen/padding16dp"
                 android:singleLine="true"
-                android:textColor="@android:color/white" />
+            android:text="@string/email"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/editProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding4dp"
+            android:layout_margin="@dimen/padding16dp"
             android:background="@color/darkerDark"
             android:padding="@dimen/padding16dp"
             android:text="Edit Profile"
@@ -126,4 +116,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

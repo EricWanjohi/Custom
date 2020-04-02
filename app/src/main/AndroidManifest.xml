@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ke.co.droidsense.custom">
-
-    <!-- Permissions...   -->
+    <!-- Permissions... -->
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -29,8 +29,21 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-
         </provider>
+
+
+        <!--  Activities  -->
+
+        <activity
+            android:name=".ui.SavedLeagues"
+            android:label="@string/saved_leagues"
+            android:theme="@style/AppTheme">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
+
         <activity
             android:name=".ui.UserProfileActivity"
             android:label="@string/user_profile"

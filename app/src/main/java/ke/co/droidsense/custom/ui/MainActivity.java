@@ -3,7 +3,6 @@ package ke.co.droidsense.custom.ui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -186,16 +185,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        //Check item clicked.
-        if (item.getItemId() == R.id.logout) {
-            //log out.
-            Logout();
-            return true;
-        } else if (item.getItemId() == R.id.userProfile) {
-            //Transition to User profile activity.
-            transitionToUserProfile();
-            return true;
+        //Check item clicked id.
+
+        switch (item.getItemId()) {
+
+            //case R.id.logout
+            case R.id.logout:
+                //log out.
+                Logout();
+                break;
+
+            //case R.id.userProfile.
+            case R.id.userProfile:
+                //Transition to User profile activity.
+                transitionToUserProfile();
+                break;
+
+            //case R.id.userSettings.
+            case R.id.userSettings:
+                //Toast
+                Toast.makeText( this, "Create Settings activity", Toast.LENGTH_SHORT ).show();
+                break;
         }
+
         return super.onOptionsItemSelected( item );
     }
 
@@ -220,10 +232,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         //Check and handle view clicked.
         if (view.getId() == R.id.api_resource) {
-            //Create Implicit Intent.
-            Uri apiResourceUri = Uri.parse( "https://www.thesportsdb.com/api.php" );
-            Intent apiResourceIntent = new Intent( Intent.ACTION_VIEW, apiResourceUri );
-            startActivity( apiResourceIntent );
+
+            //Create intent to favourite leagues.
+            Intent favouriteLeaguesIntent = new Intent( MainActivity.this, SavedLeagues.class );
+            startActivity( favouriteLeaguesIntent );
+//            //Create Implicit Intent.
+//            Uri apiResourceUri = Uri.parse( "https://www.thesportsdb.com/api.php" );
+//            Intent apiResourceIntent = new Intent( Intent.ACTION_VIEW, apiResourceUri );
+//            startActivity( apiResourceIntent );
         }
     }
 }

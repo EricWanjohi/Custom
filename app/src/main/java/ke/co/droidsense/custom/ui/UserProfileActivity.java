@@ -25,13 +25,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
@@ -44,6 +44,7 @@ import butterknife.ButterKnife;
 import ke.co.droidsense.custom.Constants.Constants;
 import ke.co.droidsense.custom.R;
 import ke.co.droidsense.custom.models.User;
+import timber.log.Timber;
 
 import static android.util.Base64.encodeToString;
 
@@ -65,11 +66,11 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     @BindView(R.id.userEmail)
     TextView userMail;
     @BindView(R.id.displayName)
-    TextInputLayout displayName;
+    TextView displayName;
     @BindView(R.id.userPhone)
-    TextInputLayout editPhone;
+    TextView editPhone;
     @BindView(R.id.userEmailEdit)
-    TextInputLayout editEMail;
+    TextView editEMail;
     @BindView(R.id.editProfile)
     Button editProfile;
 
@@ -93,7 +94,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         //Get Firebase database and reference.
         firebaseDatabase = FirebaseDatabase.getInstance();
-        userDatabaseReference = firebaseDatabase.getReference( "Users" );
+        userDatabaseReference = firebaseDatabase.getReference( Constants.USER );
 
         //Get Auth object instance.
         firebaseAuth = FirebaseAuth.getInstance();
@@ -101,56 +102,101 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         //Get User Object from Firebase.
         currentUser = firebaseAuth.getCurrentUser();
 
+        //Get User details from realtime database.
+        getUserDataFromDb();
+
         //Get User input.
-        email = editEMail.getEditText().getText().toString().trim();
-        Phone = editPhone.getEditText().getText().toString().trim();
-        userImageUrl.getDrawable();
+//        assert currentUser != null;
+//        email = currentUser.getEmail();
+//        Phone = editPhone.getText().toString().trim();
+//        userImageUrl.getDrawable();
 
 
         //Set Click Listener.
         editProfile.setOnClickListener( this );
 
-        //Get User details from realtime database.
-        getUserDetails();
+
     }
 
-    //Get User details.
-    private void getUserDetails() {
-        userDatabaseReference.addValueEventListener( new ValueEventListener() {
+    //Get data from Db
+    private void getUserDataFromDb() {
+        //Log
+        Timber.tag( "getUserDataFromDb : " ).e( "Starts" );
+        //Create a query
+        Query checkUserData = userDatabaseReference.orderByChild( "email" ).equalTo( "dedy" );
+        //Add Single event listener.
+        checkUserData.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Create User object.
-                user = dataSnapshot.getValue( User.class );
+                //check data exists.
+                if (dataSnapshot.exists()) {
+                    //Create data holder items.
+                    String emailFromDb = dataSnapshot.child( "email" ).getValue( String.class );
+                    String phoneFromDb = dataSnapshot.child( "phone" ).getValue( String.class );
+                    String fullNameFromDb = dataSnapshot.child( "fullName" ).getValue( String.class );
 
-                //Strings
-                assert user != null;
-                String uName = currentUser.getDisplayName();
-                String uEmail = currentUser.getEmail();
-                String uPhone = currentUser.getPhoneNumber();
-                currentUserPhotoUrl = currentUser.getPhotoUrl();
+                    //log data
+                    Timber.tag( emailFromDb + ": " ).e( emailFromDb );
+                    Timber.tag( phoneFromDb + ": " ).e( phoneFromDb );
+                    Timber.tag( fullNameFromDb + ": " ).e( fullNameFromDb );
 
-                //Get User id
-                userId = currentUser.getUid();
+                    //set data to editTexts.
+                    userName.setText( fullNameFromDb );
+                    userMail.setText( emailFromDb );
+                    editPhone.setText( phoneFromDb );
 
-                //Get Specific user reference.
-                userSpecificReference = firebaseDatabase.getReference( Constants.USER );
 
-                //Set Text on the views.
-                if (currentUser.getUid().equals( userId )) {
-
-                    //Set View Strings.
-                    userName.setText( uName );
-                    userMail.setText( uEmail );
+                } else {
+                    editPhone.setError( "No user with this number exists" );
+                    editPhone.setFocusable( true );
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Toast.
-                Toast.makeText( UserProfileActivity.this, "User data fetch failed...", Toast.LENGTH_SHORT ).show();
+
             }
         } );
     }
+
+    //Get User details.
+//    private void getUserDetails() {
+//        userDatabaseReference.addValueEventListener( new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                //Create User object.
+//                user = dataSnapshot.getValue( User.class );
+//
+//                //Strings
+//                assert user != null;
+//                String uName = currentUser.getDisplayName();
+//                String uEmail = currentUser.getEmail();
+//                String uPhone = currentUser.getPhoneNumber();
+//                currentUserPhotoUrl = currentUser.getPhotoUrl();
+//
+//                //Get User id
+//                userId = currentUser.getUid();
+//
+//                //Get Specific user reference.
+//                userSpecificReference = firebaseDatabase.getReference( Constants.USER );
+//
+//                //Set Text on the views.
+//                if (currentUser.getUid().equals( userId )) {
+//
+//                    //Set View Strings.
+//                    userName.setText( uName );
+//                    userMail.setText( uEmail );
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                //Toast.
+//                Toast.makeText( UserProfileActivity.this, "User data fetch failed...", Toast.LENGTH_SHORT ).show();
+//            }
+//        } );
+//    }
 
     //Edit User Email Details.
     private void editUserEmailDetails(String email) {
@@ -159,7 +205,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             //true
             currentUser.updateEmail( email );
             //Get New details.
-            getUserDetails();
+//            getUserDetails();
         } else {
             //false
             //Toast to user.
@@ -217,11 +263,33 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         //Check button id
-        if (view.getId() == R.id.editProfile) {
-            editUserEmailDetails( email );
+        switch (view.getId()) {
+            //Case editProfile
+            case R.id.editProfile:
+                //edit User data.
+                editUserEmailDetails( email );
+                break;
+
+            //case userImage.
+            case R.id.userImage:
+                //Zoom and add button to edit image
+                editImageAndSaveToFirebase();
+                break;
         }
     }
 
+    //Edit to remove image and update ui from latest data snapshot.
+    private void editImageAndSaveToFirebase() {
+        //Member variables.
+
+        //Delete from Firebase.
+
+
+        //Remove and Update database.
+        userDatabaseReference.child( currentUser.getUid() ).child( "userImageUrl" ).push().setValue( null );
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -364,7 +432,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
         //Save to Firebase
         userDatabaseReference.child( currentUser.getUid() )
-                .child( "userImageUrl" ).setValue( encodedImage );
+                .child( "userImageUrl" ).push().setValue( encodedImage );
     }
 
     //launch camera

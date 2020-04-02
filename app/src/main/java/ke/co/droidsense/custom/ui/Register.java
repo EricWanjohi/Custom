@@ -23,8 +23,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ke.co.droidsense.custom.Constants.Constants;
@@ -229,10 +227,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         progressDialog.show();
 
         //Get User instance.
-        User user = new User( fullName, emailText, phoneText, passwordText, confirmPasswordText );
+        User user = new User( emailText, phoneText, passwordText, confirmPasswordText, fullName );
+
+        //Log
+        Timber.tag( "emailText: " ).e( emailText );
+        Timber.tag( "phoneText: " ).e( phoneText );
+        Timber.tag( "passwordText: " ).e( passwordText );
+        Timber.tag( "confirmPasswordText: " ).e( confirmPasswordText );
+        Timber.tag( "fullName: " ).e( fullName );
 
         //Save value to firebase.
-        registeredAccountsDatabaseReference.push().setValue( user );
+        registeredAccountsDatabaseReference.child( phoneText ).push().setValue( user );
 
         //Create User with Email and password.
         firebaseAuth.createUserWithEmailAndPassword( emailText, passwordText )
@@ -245,7 +250,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         if (task.isSuccessful()) {
 
                             //Create User Profile using UserProfileChangeRequest class
-                            createUserProfile( Objects.requireNonNull( task.getResult() ).getUser() );
+//                            createUserProfile( Objects.requireNonNull( task.getResult() ).getUser() );
                             //Toast
                             Toast.makeText( Register.this, "Registration succeeded...", Toast.LENGTH_LONG ).show();
 

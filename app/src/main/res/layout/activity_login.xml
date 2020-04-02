@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blueGrey900"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.Login">
 
@@ -23,7 +22,7 @@
             android:gravity="center"
             android:padding="@dimen/padding16dp"
             android:text="@string/logIn"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textStyle="bold|italic" />
 
@@ -40,7 +39,7 @@
                 android:gravity="start"
                 android:hint="@string/email"
                 android:padding="@dimen/padding16dp"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:inputType="textEmailAddress"
                 android:textSize="16sp" />
 
@@ -60,7 +59,7 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:padding="@dimen/padding16dp"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +84,7 @@
             android:gravity="center"
             android:padding="@dimen/padding16dp"
             android:text="@string/don_t_have_account_create_account"
-            android:textColor="@color/whiteTheme"
+            android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold|italic" />
 

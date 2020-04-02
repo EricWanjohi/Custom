@@ -59,7 +59,7 @@ dependencies {
     def picasso_version = '2.71828'
     def firebase_core = "17.2.3"
     def parceler = '1.1.13'
-    def firebase_ui = "5.0.0"
+    def firebase_ui = "6.2.1"
     def okhttp_signpost = "1.1.0"
     def okhttp = '4.4.1'
     def constraint_layout = "1.1.3"
@@ -137,7 +137,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$firebase_core"
     // Firebase-ui...
     implementation "com.firebaseui:firebase-ui-database:$firebase_ui"
-    implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
+    implementation "com.firebaseui:firebase-ui-auth:$firebase_ui"
     //Firebase Auth
     implementation "com.google.firebase:firebase-auth:$firebase_auth"
     //Room & Lifecycle.

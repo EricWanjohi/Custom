@@ -35,4 +35,6 @@
     <string name="settings">Settings</string>
     <string name="displayName">Display Name</string>
     <string name="camera_permissions">Can\'t launch camera without permissions.</string>
+    <string name="saved_leagues">Favourite Leagues</string>
+    <string name="Add_Leagues">Add Leagues</string>
 </resources>
